@@ -3,138 +3,158 @@
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Python: 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Framework: PySide6](https://img.shields.io/badge/Framework-PySide6%20(Qt6)-green.svg)](https://www.qt.io/)
+[![Engine: Polars](https://img.shields.io/badge/Engine-Polars-CD792C.svg)](https://pola.rs/)
+[![Format: Apache Parquet](https://img.shields.io/badge/Output-Apache%20Parquet-teal.svg)](https://parquet.apache.org/)
 
-SFusion Mapper is a powerful open-source Graphical User Interface (GUI) tool designed to act as the "Zero Day" configuration utility for the **SFusion ETL Ecosystem**. Its primary function is to enable users to visually map heterogeneous data sources to specific elements of a network topology, generating a consolidated SQLite database (`.db`) used as the instruction set for the core ETL engine.
+**SFusion Mapper** is a high-performance, open-source Graphical User Interface (GUI) and data engineering application designed as the **"Day Zero" configuration and transformation engine** for the **SFusion ETL Ecosystem**.
 
-## ✨ Key Features
+It allows traffic engineers, data scientists, and simulation researchers to visually map arbitrary, heterogeneous urban sensor streams (Waze, TomTom, loop detectors, radar cameras) onto microscopic network topologies (such as SUMO). Powered by an embedded **Small Language Model (Phi-4-mini)** and a vectorized **Polars physics engine**, SFusion normalizes disparate units and exports consolidated, production-ready **Apache Parquet (`.parquet`)** datasets.
 
-SFusion Mapper provides a visual and isolated environment for data mapping:
+---
 
-* **SUMO Map Import:** Loads complex network topologies in the `.net.xml` and compressed `.net.xml.gz` formats.
-* **Heterogeneous Data Sources:** Supports adding and analyzing data from folders containing CSV, JSON, XML, and Excel files.
-* **Visual Association:** Allows drag-and-drop or selection-based association of data sources to specific map elements (Nodes/Junctions and Edges/Roads).
-* **Local vs. Global Mapping:** Data sources can be defined as **Global** (applied to the entire map) or **Local** (linked to one or more specific elements).
-* **Intelligent Edge Handling:** Automatically groups directional road pairs (e.g., "123" and "-123") for consistent naming and association.
-* **Project Persistence:** Save and load the entire work state (map data, associations, names) via a dedicated project file (`.sfm.json`).
-* **Final Configuration Export:** Generates the final, consolidated SQLite database (`.db`) containing all metadata and mapping instructions.
-* **Internationalization (i18n):** User interface supports multiple languages (English, Portuguese, Spanish, French, Russian, Mandarin).
+## ✨ Key Capabilities
 
-***
+* 🗺️ **SUMO Map Ingestion:** Loads microscopic road networks in both standard `.net.xml` and compressed `.net.xml.gz` formats.
+* 📁 **Heterogeneous Sensor Support:** Ingests folders containing CSV, JSON, XML, and Excel telemetry datasets.
+* 🧠 **Neuro-Symbolic Schema Discovery:** Leverages a local Small Language Model (Phi-4-mini-reasoning GGUF) to deduce semantic column mappings automatically, validated against deterministic physical heuristics.
+* ⚡ **Vectorized Physics Compilation:** Uses Polars computational graphs (`pl.Expr`) to normalize speeds, flows, and intensities into standard SI / SUMO units ($km/h$, $veh/h$, $veh/km$) at memory-speed.
+* 🛣️ **Intelligent Road Pairing:** Automatically identifies and groups opposing directional road pairs (e.g., `edge_12` and `-edge_12`) for consistent naming and simultaneous sensor association.
+* 🌐 **Local & Global Mapping:** Binds sensor data either locally (to specific road segments or intersections) or globally (applying city-wide parameters).
+* 💾 **Session Persistence:** Saves visual mapping sessions, customized street names, and associations into lightweight project files (`.sfm.json`).
+* 📦 **Gold Columnar Export:** Compiles the final normalized traffic time-series into high-throughput **Apache Parquet (`.parquet`)** files.
+* 🌍 **Internationalization (i18n):** Dual-layer translation engine supporting English, Portuguese (`pt_BR`), Spanish (`es`), French (`fr`), Russian (`ru`), and Mandarin (`zh`).
 
-## 📚 Documentation & Architecture (Knowledge Base)
+---
 
-Explore our Obsidian-linked documentation structure for deep-dives into the project:
+## 📚 Documentation & Knowledge Base (Obsidian Hub)
+
+SFusion features a complete, interconnected knowledge base accessible both on GitHub and as an **Obsidian Vault**:
 
 <div align="center">
   <table>
     <tr>
-      <td align="center" width="33%">
+      <td align="center" width="25%">
         <h3>🏗️ <a href="ARCHITECTURE.md">Architecture</a></h3>
-        <p>System design, MVC, and core layers.</p>
+        <p>Clean MVC, Builder pattern, and layer specifications.</p>
         <p><i>[[ARCHITECTURE]]</i></p>
       </td>
-      <td align="center" width="33%">
-        <h3>📚 <a href="docs/INDEX.md">Docs Hub</a></h3>
-        <p>Central Map of Content (MOC).</p>
+      <td align="center" width="25%">
+        <h3>📚 <a href="docs/INDEX.md">Docs Hub (MOC)</a></h3>
+        <p>Central Map of Content connecting all guides.</p>
         <p><i>[[docs/INDEX]]</i></p>
       </td>
-      <td align="center" width="33%">
-        <h3>🚀 <a href="#-getting-started">Setup Guide</a></h3>
-        <p>Installation and configuration.</p>
-        <p><i>[[README#Setup]]</i></p>
+      <td align="center" width="25%">
+        <h3>🧠 <a href="docs/NEURAL_PIPELINE.md">Neural & SLM</a></h3>
+        <p>Phi-4-mini inference and neuro-symbolic resolver.</p>
+        <p><i>[[docs/NEURAL_PIPELINE]]</i></p>
+      </td>
+      <td align="center" width="25%">
+        <h3>⚡ <a href="docs/ETL_PIPELINE.md">ETL Pipeline</a></h3>
+        <p>Multi-threaded ingestion and Parquet export.</p>
+        <p><i>[[docs/ETL_PIPELINE]]</i></p>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="25%">
+        <h3>📐 <a href="docs/MATH_ENGINE.md">Math Engine</a></h3>
+        <p>Polars AST compilation and SI unit normalization.</p>
+        <p><i>[[docs/MATH_ENGINE]]</i></p>
+      </td>
+      <td align="center" width="25%">
+        <h3>🗃️ <a href="docs/DATA_MODELS.md">Data Models</a></h3>
+        <p>Entities, schemas, SQLite staging, and Parquet.</p>
+        <p><i>[[docs/DATA_MODELS]]</i></p>
+      </td>
+      <td align="center" width="25%">
+        <h3>🚀 <a href="docs/HARDWARE_AND_CUDA.md">Hardware / CUDA</a></h3>
+        <p>GPU offload, dynamic loader, and telemetry.</p>
+        <p><i>[[docs/HARDWARE_AND_CUDA]]</i></p>
+      </td>
+      <td align="center" width="25%">
+        <h3>🖥️ <a href="docs/USER_GUIDE.md">User Guide</a></h3>
+        <p>Step-by-step GUI tutorial and operations manual.</p>
+        <p><i>[[docs/USER_GUIDE]]</i></p>
       </td>
     </tr>
   </table>
 </div>
 
-For a detailed breakdown of the system layers, MVC implementation, and SLM engine integration, please refer to the [[ARCHITECTURE]] document.
-
-***
+---
 
 ## 🚀 Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
 ### Prerequisites
 
-* Python 3.9 or higher.
-* `pip` and `venv` modules installed.
-* **Linux (Ubuntu/Debian):** You may need system libraries for PySide6/Qt:
-    ```bash
-    sudo apt update
-    sudo apt install python3-venv build-essential libqt6gui6 libqt6widgets6 libgl1
-    ```
+* **Operating System:** Linux (Ubuntu 20.04+, Debian 11+, Fedora, Arch) or Windows 10/11.
+* **Python:** Version 3.9 or higher (Python 3.10 – 3.12 recommended).
+* **System Libraries (Linux):**
+  ```bash
+  sudo apt update
+  sudo apt install python3-venv build-essential libqt6gui6 libqt6widgets6 libgl1 libxcb-cursor0
+  ```
+* **Hardware Acceleration (Optional, Recommended):**
+  * NVIDIA GPU with $\ge 6$ GB VRAM (RTX 3060 or higher).
+  * NVIDIA Driver $\ge 525.60$ with CUDA 12.x support.
+  * *Note: If no GPU is available, the system falls back automatically to multi-threaded CPU execution.*
 
-### Local Setup
+---
 
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/Noxfort-Labs/sfusion-mapper.git](https://github.com/Noxfort-Labs/sfusion-mapper.git)
-    cd sfusion-mapper
-    ```
+### Local Installation
 
-2.  **Create and Activate Virtual Environment (venv):**
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
-    *(Note: You will see `(venv)` in your terminal prompt.)*
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/Noxfort-Labs/sfusion-mapper.git
+   cd sfusion-mapper
+   ```
 
-3.  **Install Dependencies:**
-    Install all required Python packages from `requirements.txt`:
-    ```bash
-    pip install -r requirements.txt
-    ```
+2. **Create and Activate a Virtual Environment:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
-4.  **Run the Application:**
-    Start the GUI application using the Python interpreter inside the virtual environment:
-    ```bash
-    python sfusion.py
-    ```
+3. **Install Dependencies:**
+   ```bash
+   pip install --upgrade pip
+   pip install -r requirements.txt
+   ```
 
-### Dockerized Setup (GUI in Container)
+4. **Verify the SLM Model:**
+   The project expects the quantized model binary at:
+   ```
+   src/models/Phi-4-mini-reasoning-UD-Q6_K_XL.gguf
+   ```
+   *If the model file is not present, download it from the project releases or Hugging Face repository and place it into `src/models/`.*
 
-The project includes configuration to build and run the GUI application inside a Docker container, suitable for environments without direct system dependency installation. This setup requires **X11 forwarding** from your host system (common on Linux).
+5. **Run the Application:**
+   ```bash
+   python sfusion.py
+   ```
 
-1.  **Build the Docker Image:**
-    ```bash
-    docker build -t sfusion-app .
-    ```
+---
 
-2.  **Run the Application via Docker Compose (Recommended):**
-    The `docker-compose.yml` file is configured to handle the necessary environment variables (`DISPLAY`, `QT_X11_NO_MITSHM`) and volume mounting (`/tmp/.X11-unix`) for the GUI to display on the host.
-    ```bash
-    docker-compose up
-    ```
-    *Alternatively, run the image directly:*
-    ```bash
-    # Ensure DISPLAY is set correctly on your host, e.g., export DISPLAY=:0
-    docker run -it --rm \
-      -e DISPLAY=$DISPLAY \
-      -v /tmp/.X11-unix:/tmp/.X11-unix \
-      sfusion-app
-    ```
+## 🧪 Running Unit Tests
 
-***
+SFusion includes a comprehensive test suite covering domain entities, services, the Polars math engine, ETL workers, and CUDA loaders:
 
-## 📦 Building Executable (Linux)
+```bash
+# Run all tests
+pytest
 
-To generate a standalone executable file, the project uses **PyInstaller**. This process is defined in `sfusion.spec`.
+# Run tests with detailed verbosity
+pytest -v
 
-1.  **Install PyInstaller:**
-    ```bash
-    pip install pyinstaller
-    ```
-2.  **Run the Build Command:**
-    ```bash
-    pyinstaller sfusion.spec
-    ```
-    The final executable (`sfusion_mapper`) will be located in the newly created `dist/` folder.
+# Run a specific test suite
+pytest tests/test_services/test_math_engine.py
+```
 
-***
+---
+
 
 ## 🤝 Contributing
 
-This project is licensed under the **GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later)**.
+Contributions are warmly welcomed! Please review our [[CONTRIBUTING|Contribution Guidelines]] and [[CODE_OF_CONDUCT|Code of Conduct]] prior to submitting pull requests.
 
-All contributions are welcome, provided they adhere to the same licensing terms.
+## 📄 License
+
+This project is licensed under the **GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later)**. See the [LICENSE](LICENSE) file for full details.

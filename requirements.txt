@@ -23,6 +23,8 @@ pydantic
 sentence-transformers  # <--- Semantic Encoder (mpnet) for vectorial schema discovery
 numpy                  # <--- Tensor math (cosine similarity)
 llama-cpp-python     # <--- ATIVADO: SLM Inferência com suporte a CUDA
+nvidia-cuda-runtime-cu12  # <--- CUDA 12 runtime bindings (libcudart.so.12)
+nvidia-cublas-cu12        # <--- CUDA 12 BLAS bindings (libcublas.so.12)
 
 # Development Dependencies
 # (Tools for testing and development)

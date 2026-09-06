@@ -36,6 +36,15 @@ dependencies = [
     "lxml",
     "pandas",
     "openpyxl",
+    "pyarrow",
+    "polars",
+    "pydantic",
+    "sentence-transformers",
+    "numpy",
+    "llama-cpp-python",
+    "nvidia-cuda-runtime-cu12",
+    "nvidia-cublas-cu12",
+    "orjson",
 ]
 
 [project.optional-dependencies]
@@ -43,3 +52,7 @@ dependencies = [
 dev = [
     "pytest>=7.0",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

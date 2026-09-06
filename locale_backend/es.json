@@ -137,7 +137,6 @@
     "app.config_critical": "Critical Configuration Error! File: {path}. The 'locale_path' and 'language' keys are missing or null. Please check your 'config/settings.json'.",
     "errors.data_importer.analysis_failed": "Failed to analyze data source: {error}",
     "errors.parquet.db_not_found": "DB file not found: {path}",
-    "etl.complete": "ETLWorker: Complete. {files} files ingested. {events} events extracted.",
     "main.status_processing": "Processing Raw Data (Staging)...",
     "main.status_exporting": "Optimizing & Exporting to Parquet...",
     "main.status_success": "Success! Generated: {name}",

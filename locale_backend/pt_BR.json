@@ -128,6 +128,7 @@
     "etl.discover_schema": "ETLWorker: Descobrindo Schema para '{source}' usando arquivo '{file}'",
     "etl.ingest_file": "ETLWorker [Thread {source}]: Ingeriu {file} em {time}s",
     "etl.init": "ETLService (Serviço) inicializado.",
+    "etl.pass2_completed": "ETLWorker: Ingestão concluída ({files} arquivos processados, {events} eventos extraídos).",
     "etl.complete": "ETLWorker: Concluído. {files} arquivos ingeridos. {events} eventos extraídos.",
     "main.pipeline_init": "MainController: Pipeline inicializada. Alvo: {target}, Staging: {staging}",
     "main.staging_complete": "MainController: Staging completo. Exportando para Parquet final...",
@@ -188,5 +189,6 @@
     "schemas.desc_distance": "Nome da coluna representando distância espacial ou comprimento da seção.",
     "schemas.desc_time": "Nome da coluna representando tempo decorrido, duração ou variância de tempo.",
     "schemas.desc_occupancy": "Nome da coluna representando a ocupação da via (porcentagem de tempo que o sensor esteve ocupado).",
-    "schemas.desc_confidence": "Confiança média de similaridade de cosseno do mapeamento semântico (0.0 a 1.0)."
+    "schemas.desc_confidence": "Confiança média de similaridade de cosseno do mapeamento semântico (0.0 a 1.0).",
+    "errors.i18n.load_failed": "Falha ao carregar arquivo de tradução para '{lang}': {error}"
 }

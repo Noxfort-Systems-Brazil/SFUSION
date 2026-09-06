@@ -14,6 +14,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# File: ui/shared/dialogs.py
+# File: tests/test_utils/test_cuda_loader.py
 # Author: Gabriel Moraes
-# Date: November 2025
+# Date: 2026-08-14
+
+import os
+import sys
+from unittest.mock import patch
+from src.utils.cuda_loader import ensure_cuda_libs
+
+def test_ensure_cuda_libs_returns_true():
+    assert ensure_cuda_libs() is True
+
+def test_ensure_cuda_libs_idempotent():
+    # Should be fast and return True on repeated calls
+    assert ensure_cuda_libs() is True
+    assert ensure_cuda_libs() is True

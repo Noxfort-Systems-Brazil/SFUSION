@@ -1,16 +1,24 @@
-# SFusion (SYNAPSE Fusion) Mapper
+# SFusion (SYNAPSE Fusion) Mapper - "Day Zero" ETL Configuration Tool
 # Copyright (C) 2026 Gabriel Moraes - Noxfort Systems
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 # File: src/services/neural_transformer.py
 # Author: Gabriel Moraes
 # Date: May 2026
 # Description:
-#    SOLID Intermediary Layer. Orchestrates the Semantic Encoder (mpnet) 
+#    SOLID Intermediary Layer. Orchestrates the Semantic Encoder (Phi-4-mini) 
 #    and the Vector Physics Engine (Polars) to normalize heterogeneous data payloads.
 
 import pandas as pd
@@ -48,8 +56,7 @@ class NeuralTransformer:
 
     def discover_schema(self, raw_text: str, folder_name: str, assoc_type: str = "LOCAL") -> Optional[KinematicMap]:
         """
-        Uses the Semantic Encoder to classify column names into kinematic properties
-        via cosine similarity (tensor dot product). Instantaneous inference.
+        Uses the SLM Engine to discover schema mapping for the sensor.
         """
         # Check cache first — avoid redundant inference for the same sensor type
         if folder_name in self._schema_cache:
@@ -57,11 +64,6 @@ class NeuralTransformer:
             return self._schema_cache[folder_name]
         
         logging.info(backend_i18n.t("neural.discover_schema", sensor=folder_name))
-        
-        global_summary = (
-            f"SENSOR FOLDER: {folder_name}\n\n"
-            f"RAW FILE CONTENT:\n{raw_text}"
-        )
         
         if self.slm_engine:
             schema = self.slm_engine.discover_schema(raw_text, folder_name, assoc_type)
@@ -73,7 +75,7 @@ class NeuralTransformer:
                         setattr(schema, field, None)
                 
                 # --- PÓS-SLM VALIDATION ---
-                if assoc_type == "LOCAL":
+                if assoc_type.upper() == "LOCAL":
                     if not schema.speed_col and (not schema.distance_col or not schema.time_col):
                         logging.warning(backend_i18n.t('warnings.neural.missing_speed_dist_time', sensor=folder_name))
                     if not schema.intensity_col and not schema.occupancy_col:
@@ -96,15 +98,57 @@ class NeuralTransformer:
         if not events:
             return []
             
-        payloads = [e.get('data_payload', {}) for e in events]
-        df_payload = pd.json_normalize(payloads)
-        
-        # Inject metadata for grouping and time windowing
-        df_payload['event_timestamp'] = [e['event_timestamp'] for e in events]
-        df_payload['sensor_id'] = [e['sensor_id'] for e in events]
+        def extract_flat_payloads(payload, parent_key=''):
+            items = {}
+            lists = {}
+            for k, v in payload.items():
+                new_key = f"{parent_key}.{k}" if parent_key else k
+                if isinstance(v, dict):
+                    sub_items, sub_lists = extract_flat_payloads(v, new_key)
+                    items.update(sub_items)
+                    lists.update(sub_lists)
+                elif isinstance(v, list) and len(v) > 0 and isinstance(v[0], dict):
+                    lists[new_key] = v
+                else:
+                    items[new_key] = v
+            return items, lists
+
+        def explode_combinations(base_items, lists):
+            if not lists:
+                yield base_items
+                return
+                
+            k_list, v_list = list(lists.items())[0]
+            remaining_lists = {k: v for k, v in lists.items() if k != k_list}
+            
+            if not v_list:
+                yield from explode_combinations(base_items, remaining_lists)
+                return
+                
+            for item in v_list:
+                if isinstance(item, dict):
+                    sub_items, sub_lists = extract_flat_payloads(item, k_list)
+                    new_base = dict(base_items)
+                    new_base.update(sub_items)
+                    new_lists = dict(remaining_lists)
+                    new_lists.update(sub_lists)
+                    yield from explode_combinations(new_base, new_lists)
+                else:
+                    yield from explode_combinations(base_items, remaining_lists)
+
+        flat_events = []
+        for event in events:
+            payload = event.get('data_payload', {})
+            items, lists = extract_flat_payloads(payload)
+            for flat_payload in explode_combinations(items, lists):
+                flat_payload['event_timestamp'] = event['event_timestamp']
+                flat_payload['sensor_id'] = event['sensor_id']
+                flat_events.append(flat_payload)
+                
+        df_payload = pd.DataFrame(flat_events)
         
         if schema:
-            # Reconcile schema columns with actual DataFrame columns (Extractors strip root keys)
+            # Reconcile schema columns with actual DataFrame columns
             df_cols = list(df_payload.columns)
             
             def resolve_column(schema_col: Optional[str]) -> Optional[str]:
@@ -150,9 +194,6 @@ class NeuralTransformer:
             pl_df = pl_df.with_columns(exprs)
             
             # --- AGGREGATION (1 Arquivo = 1 Linha) ---
-            # Agrupamos apenas pelo sensor_id para que TODOS os eventos lidos dentro deste mesmo arquivo
-            # sejam sumariados (Média/Soma) resultando em exatamente 1 linha, não importando quantas
-            # coordenadas existam no arquivo.
             group_cols = ["sensor_id"]
             agg_exprs = self.math_engine.compile_aggregations(pl_df.columns)
             pl_df = pl_df.group_by(group_cols).agg(agg_exprs)
@@ -167,7 +208,7 @@ class NeuralTransformer:
             if col not in df_payload.columns:
                 df_payload[col] = None
                 
-        # Convert pandas numeric formatting appropriately so it serializes natively to JSON
+        # Convert pandas numeric formatting appropriately so it serializes natively
         df_payload['speed_val'] = pd.to_numeric(df_payload['speed_val'], errors='coerce')
         df_payload['flow_val'] = pd.to_numeric(df_payload['flow_val'], errors='coerce')
         df_payload['intensity_val'] = pd.to_numeric(df_payload['intensity_val'], errors='coerce')
@@ -180,23 +221,36 @@ class NeuralTransformer:
         
         aggregated_events = []
         for row in enriched_payloads:
-            # Check for failed physics calculations and log explicitly
-            missing_kinematics = []
-            if row.get('speed_val') is None: missing_kinematics.append('speed_val')
-            if row.get('flow_val') is None: missing_kinematics.append('flow_val')
-            if row.get('intensity_val') is None: missing_kinematics.append('intensity_val')
-            
             sensor_id = row.get('sensor_id', events[0]['sensor_id'])
+            
+            # If schema was mapped but speed_val is None due to zero vehicles/empty interval, default to 0.0
+            speed_value = row.get('speed_val')
+            if speed_value is None and schema and (schema.speed_col or (schema.distance_col and schema.time_col)):
+                speed_value = 0.0
+
+            # Check for genuinely failed physics calculations (missing column in schema)
+            missing_kinematics = []
+            if speed_value is None: 
+                missing_kinematics.append('speed_val')
+            if assoc_type.upper() == "LOCAL":
+                if row.get('flow_val') is None: missing_kinematics.append('flow_val')
+                if row.get('intensity_val') is None: missing_kinematics.append('intensity_val')
             
             if missing_kinematics:
                 logging.warning(backend_i18n.t("neural.physics_failed", vars=missing_kinematics, sensor=sensor_id))
             
-            # Save ONLY calculated physics + location columns in the payload.
-            # Raw data is already preserved compressed in raw_data_storage.
+            # Global sensors strictly zero out flow and intensity (macro network speed only)
+            if assoc_type.upper() == "GLOBAL":
+                final_flow = 0.0
+                final_intensity = 0.0
+            else:
+                final_flow = row.get('flow_val', 0.0)
+                final_intensity = row.get('intensity_val', 0.0)
+
             clean_payload = {
-                'speed_val': row.get('speed_val'),
-                'flow_val': row.get('flow_val'),
-                'intensity_val': row.get('intensity_val'),
+                'speed_val': speed_value,
+                'flow_val': final_flow,
+                'intensity_val': final_intensity,
                 'lat': row.get('lat'),
                 'lon': row.get('lon'),
             }

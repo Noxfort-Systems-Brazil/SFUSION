@@ -18,9 +18,10 @@
 # Author: Gabriel Moraes
 # Date: November 2025
 
+import os
+import glob
 import logging
 from src.utils.i18n import backend_i18n
-import os
 from PySide6.QtCore import QObject, Slot
 from PySide6.QtWidgets import QFileDialog, QMessageBox
 
@@ -67,16 +68,29 @@ class MainController(QObject):
         # State variables for the pipeline
         self._temp_db_path = None
         self._target_parquet_path = None
-        
-        logging.info(backend_i18n.t("controller.main.init"))
+
+    def _cleanup_temp_files(self, db_path: str = None):
+        """
+        Removes temporary SQLite database and all associated WAL/SHM/Journal files.
+        """
+        target = db_path or self._temp_db_path
+        if not target:
+            return
+
+        for suffix in ["", "-wal", "-shm", "-journal"]:
+            fpath = f"{target}{suffix}"
+            if os.path.exists(fpath):
+                try:
+                    os.remove(fpath)
+                    logging.info(backend_i18n.t("main.temp_db_deleted", file=fpath))
+                except OSError as e:
+                    logging.warning(backend_i18n.t("main.temp_db_delete_failed", error=str(e)))
 
     def setup_connections(self):
-        """Connects the MainWindow signals to this controller's slots."""
-        
-        # Project & Map Connections
+        """Connects signals from View to Controller methods."""
         self._view.open_project_requested.connect(self._on_open_project)
         self._view.save_project_requested.connect(self._on_save_project)
-        self._view.open_map_requested.connect(self._on_open_map)
+        self._view.open_map_requested.connect(self._on_import_map)
         self._view.add_source_requested.connect(self._on_add_source)
         
         # The Trigger Button
@@ -118,15 +132,16 @@ class MainController(QObject):
                 self._view.show_status_message(t("main_window.status_project_saved", name=os.path.basename(file_path)))
             except Exception as e:
                 self._view.show_error_message(t("dialog.error.title"), t("dialog.error.generic_save", error=str(e)))
-    
+
     @Slot()
-    def _on_open_map(self):
+    def _on_import_map(self):
         t = self._i18n.t
         file_path, _ = QFileDialog.getOpenFileName(
             self._view, t("dialog.open_map.title"), self._current_path, t("dialog.open_map.filter")
         )
         if file_path:
             self._current_path = os.path.dirname(file_path)
+            
             try:
                 self._map_importer.load_map(file_path)
                 self._view.show_status_message(t("main_window.status_map_loaded", name=os.path.basename(file_path)))
@@ -135,38 +150,29 @@ class MainController(QObject):
 
     @Slot()
     def _on_add_source(self):
+        """Asks for a folder, loads, and classifies the data source."""
         t = self._i18n.t
-        folder_path = QFileDialog.getExistingDirectory(self._view, t("dialog.add_source.title"), self._current_path)
-        if not folder_path: return
+        folder_path = QFileDialog.getExistingDirectory(
+            self._view,
+            t("dialog.add_source.title"),
+            self._current_path
+        )
+        
+        if folder_path:
+            self._current_path = folder_path
+            source_name = os.path.basename(folder_path)
             
-        self._current_path = folder_path
-        
-        msg_box = QMessageBox(self._view)
-        msg_box.setWindowTitle(t("dialog.add_source.type_title"))
-        msg_box.setText(t("dialog.add_source.type_text", name=os.path.basename(folder_path)))
-        global_btn = msg_box.addButton(t("dialog.add_source.type_global"), QMessageBox.YesRole)
-        local_btn = msg_box.addButton(t("dialog.add_source.type_local"), QMessageBox.NoRole)
-        msg_box.addButton(QMessageBox.Cancel)
-        msg_box.exec()
-        
-        clicked = msg_box.clickedButton()
-        assoc_type = "GLOBAL" if clicked == global_btn else "LOCAL" if clicked == local_btn else None
-        
-        if assoc_type:
             try:
-                self._data_importer.add_data_source(folder_path, assoc_type)
-                self._view.show_status_message(t("main_window.status_source_added", name=os.path.basename(folder_path)))
+                self._data_importer.add_data_source(folder_path, "LOCAL")
+                self._view.show_status_message(t("main_window.status_source_added", name=source_name))
             except Exception as e:
                 self._view.show_error_message(t("dialog.error.title"), t("dialog.error.generic_load", error=str(e)))
 
     @Slot()
     def _on_save_config(self):
-        """
-        Triggered by UI Button (Generate Dataset).
-        NOW ASKS FOR PARQUET, BUT CREATES HIDDEN DB FIRST.
-        """
+        """Trigger button in UI: Starts the 3-step automated pipeline."""
         t = self._i18n.t
-        # Change filter to suggest Parquet
+        
         file_path, _ = QFileDialog.getSaveFileName(
             self._view,
             t("dialog.save_config.title"),
@@ -193,6 +199,9 @@ class MainController(QObject):
                 if self._view.sources_panel:
                     self._view.sources_panel.set_savable_state(False)
 
+                # Clean any leftover temp DB files from a previous interrupted run
+                self._cleanup_temp_files(self._temp_db_path)
+
                 # Step 1: Save Schema to TEMP DB
                 self._persistence.save_configuration(self._temp_db_path)
                 
@@ -206,6 +215,7 @@ class MainController(QObject):
                 self._view.set_savable_state(True)
                 if self._view.sources_panel:
                     self._view.sources_panel.set_savable_state(True)
+                self._cleanup_temp_files(self._temp_db_path)
                 self._view.show_error_message(t("dialog.error.title"), str(e))
 
     @Slot(str)
@@ -214,26 +224,22 @@ class MainController(QObject):
         logging.info(backend_i18n.t("main.staging_complete"))
         self._view.show_status_message(backend_i18n.t("main.status_exporting"))
         
-        # Use the stored target path
         try:
             self._parquet.export_db_to_parquet(db_path, self._target_parquet_path)
         except Exception as e:
             self._view.set_savable_state(True)
             if self._view.sources_panel:
                 self._view.sources_panel.set_savable_state(True)
+            self._cleanup_temp_files(db_path)
             self._view.show_error_message(self._i18n.t("dialog.error.title"), str(e))
 
     @Slot()
     def _on_export_finished(self):
-        """Automated Step 4: Cleanup."""
+        """Automated Step 4: Complete Cleanup."""
         logging.info(backend_i18n.t("main.export_complete"))
         
-        if self._temp_db_path and os.path.exists(self._temp_db_path):
-            try:
-                os.remove(self._temp_db_path)
-                logging.info(backend_i18n.t("main.temp_db_deleted", file=self._temp_db_path))
-            except OSError as e:
-                logging.warning(backend_i18n.t("main.temp_db_delete_failed", error=str(e)))
+        # Remove all temp files (.db, -wal, -shm, -journal)
+        self._cleanup_temp_files(self._temp_db_path)
 
         final_name = os.path.basename(self._target_parquet_path) if self._target_parquet_path else "File"
         self._view.show_status_message(backend_i18n.t("main.status_success", name=final_name))

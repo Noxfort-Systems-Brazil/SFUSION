@@ -14,6 +14,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# File: ui/shared/dialogs.py
+# File: src/etl/__init__.py
 # Author: Gabriel Moraes
-# Date: November 2025
+# Date: June 2026
+
+from src.etl.storage_repository import ETLStorageRepository
+from src.etl.sensor_processor import SensorBatchProcessor
+
+__all__ = ["ETLStorageRepository", "SensorBatchProcessor"]

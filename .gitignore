@@ -1,23 +1,33 @@
 # Models (large binary files)
 src/models/*.gguf
 src/models/mpnet_multilingual/
+*.gguf
+*.bin
+*.safetensors
+*.onnx
 
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 .venv/
 venv/
 ENV/
 env/
 .pytest_cache/
 .coverage
+.coverage.*
 htmlcov/
+.mypy_cache/
+.ruff_cache/
 
-# IDE
+# IDE & Notes
 .vscode/
 .idea/
+.obsidian/workspace.json
+*.swp
+*.swo
+*~
 
 # Logs
 *.log
@@ -29,14 +39,16 @@ htmlcov/
 # Builds & Packages
 build/
 dist/
-*.spec
-*.lintian
+*.deb
+*.rpm
 *.egg-info/
 *.egg
 
 # Environment
 .env
+.env.*
+*.env
 
 # OS
 .DS_Store
-*.swp
+Thumbs.db

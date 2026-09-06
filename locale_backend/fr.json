@@ -137,7 +137,8 @@
     "app.config_critical": "Critical Configuration Error! File: {path}. The 'locale_path' and 'language' keys are missing or null. Please check your 'config/settings.json'.",
     "errors.data_importer.analysis_failed": "Failed to analyze data source: {error}",
     "errors.parquet.db_not_found": "DB file not found: {path}",
-    "etl.complete": "ETLWorker: Complete. {files} files ingested. {events} events extracted.",
+    "etl.pass2_completed": "ETLWorker: Ingestion terminée ({files} fichiers traités, {events} événements extraits).",
+    "etl.complete": "ETLWorker: Ingestion complete. {files} files ingested. {events} events extracted.",
     "main.status_processing": "Processing Raw Data (Staging)...",
     "main.status_exporting": "Optimizing & Exporting to Parquet...",
     "main.status_success": "Success! Generated: {name}",
@@ -188,5 +189,6 @@
     "schemas.desc_distance": "Name of the column representing spatial distance or section length.",
     "schemas.desc_time": "Name of the column representing elapsed time, duration, or time variance.",
     "schemas.desc_occupancy": "Name of the column representing road occupancy (percentage of time the sensor was occupied).",
-    "schemas.desc_confidence": "Average cosine similarity confidence of the semantic matching (0.0 to 1.0)."
+    "schemas.desc_confidence": "Average cosine similarity confidence of the semantic matching (0.0 to 1.0).",
+    "errors.i18n.load_failed": "Échec du chargement du fichier de traduction pour '{lang}': {error}"
 }

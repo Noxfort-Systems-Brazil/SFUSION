@@ -25,8 +25,8 @@ from src.utils.i18n import backend_i18n
 class KinematicMap(BaseModel):
     """
     Strongly Typed Object acting as a Mathematical Blueprint.
-    The SLM (Phi-4-mini) will instantiate this object filling it with the actual columns
-    identified in the sensor sample so the Vector Engine (Polars) can build the AST.
+    The SLM (Phi-4-mini) instantiates this object filling it with the actual columns
+    and measurement units identified in the sensor sample so the Vector Engine (Polars) can build the AST.
     """
     
     # --- Direct Variables ---
@@ -57,9 +57,26 @@ class KinematicMap(BaseModel):
         description=backend_i18n.t("schemas.desc_occupancy")
     )
 
+    # --- Unit of Measurement Metadata ---
+    speed_unit: Optional[str] = Field(
+        "km/h",
+        description="Speed unit: km/h, m/s, mph"
+    )
+    occupancy_unit: Optional[str] = Field(
+        None,
+        description="Occupancy unit: ms, s, pct"
+    )
+    distance_unit: Optional[str] = Field(
+        None,
+        description="Distance unit: m, km, miles"
+    )
+    time_unit: Optional[str] = Field(
+        None,
+        description="Time unit: s, ms, min, hours"
+    )
+
     # --- Confidence Metadata ---
     confidence_score: Optional[float] = Field(
         None,
         description=backend_i18n.t("schemas.desc_confidence")
     )
-

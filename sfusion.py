@@ -35,6 +35,10 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(APP_ROOT, 'src'))
 sys.path.append(os.path.join(APP_ROOT, 'ui'))
 
+# --- CUDA Environment Configuration ---
+from src.utils.cuda_loader import ensure_cuda_libs
+ensure_cuda_libs()
+
 # --- Component Imports (after path configuration) ---
 from src.core.app_builder import AppBuilder
 

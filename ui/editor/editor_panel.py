@@ -1,25 +1,24 @@
-# SFusion (SYNAPSE Fusion) Mapper
+# SFusion (SYNAPSE Fusion) Mapper - "Day Zero" ETL Configuration Tool
+# Copyright (C) 2026 Gabriel Moraes - Noxfort Systems
 #
-# Copyright (C) 2025 Gabriel Moraes - Noxfort Labs
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
 #
-# Este programa é software livre: pode redistribuí-lo e/ou modificá-lo
-# sob os termos da Licença Pública Geral Affero GNU como publicada pela
-# Free Software Foundation, quer a versão 3 da Licença, ou
-# (à sua opção) qualquer versão posterior.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
 #
-# Este programa é distribuído na esperança de que seja útil,
-# mas SEM QUALQUER GARANTIA; sem mesmo a garantia implícita de
-# COMERCIALIZAÇÃO ou ADEQUAÇÃO A UM PROPÓSITO ESPECÍFICO. Veja a
-# Licença Pública Geral Affero GNU para mais detalhes.
-#
-# Deveria ter recebido uma cópia da Licença Pública Geral Affero GNU
-# junto com este programa. Se não, veja <https://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 # File: ui/editor/editor_panel.py
 # Author: Gabriel Moraes
 # Date: November 2025
-#    para editar metadados de Nós/Arestas.
-#    (Refatorado para usar Checkboxes em vez de ComboBox)
+# Description:
+#    Editor panel for Node/Edge metadata editing.
 
 import logging
 from PySide6.QtCore import Qt, Signal, Slot

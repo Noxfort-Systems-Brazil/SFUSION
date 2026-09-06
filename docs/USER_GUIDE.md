@@ -1,31 +1,132 @@
-# 🖥️ User Guide
+# 🖥️ User Guide & Operations Manual
 
-This guide walks you through the standard operational procedure for using the SFusion Mapper GUI.
+This guide walks you through the complete end-to-end operational procedure for using the **SFusion Mapper** Graphical User Interface (GUI).
 
-## 1. Importing the Network Topology
-* Click **File > Import Map** from the top menu.
-* Select your valid SUMO network file (`.net.xml` or compressed `.net.xml.gz`).
-* The map will render in the central `MapView`. You can zoom using the scroll wheel and pan by clicking and dragging the canvas.
-
-## 2. Adding Data Sources
-* Navigate to the **Data Sources** panel on the left sidebar.
-* Click the **Add Source** button and select a directory.
-* The system will automatically scan for valid datasets (CSV, JSON, Excel) and populate the list.
-
-## 3. Creating Associations
-* **Global Association**: Right-click a data source in the list and select "Set as Global". The neural engine will map its variables to all edges in the simulation simultaneously.
-* **Local Association**: Click and drag a data source from the list and drop it onto a specific road segment (Edge) on the map. The edge will highlight in a distinct color, indicating an active local association.
-
-## 4. Validating the Neural Mapping
-Once an association is made, the [[docs/NEURAL_PIPELINE|SLM Engine]] will run in the background to deduce schema routing.
-* Open the **Editor Panel** on the right sidebar.
-* Verify that the inferred `KinematicMap` correctly matches your dataset columns to the required physics variables (Speed, Flow).
-* If the SLM made a mistake or hallucinated a column, you can manually override the schema routing using the dropdowns in the Editor Panel.
-
-## 5. Exporting the Configuration
-* Once all mapping is complete and validated, click **Export Database**.
-* Choose an output directory.
-* SFusion will generate the final SQLite `.db` file, which is fully ready to be ingested by the core headless ETL pipeline.
+> [!NOTE]
+> For foundational theory on topology, sensors, and schemas, see [[docs/CORE_CONCEPTS]]. For technical details on the underlying data processing, see [[docs/SYSTEM_WORKFLOW]].
 
 ---
-*Return to [[docs/INDEX]]*
+
+## 🧭 Interface Overview
+
+The SFusion Mapper interface is organized into three primary functional zones:
+
+```
++-------------------------------------------------------------------------+
+| Toolbar: [Open Project] [Save Project] | [Open Map] [Add Source] | [Generate Dataset] | [Settings]
++-------------------+--------------------------------+--------------------+
+|                   |                                |                    |
+|                   |                                |                    |
+|   Sources Panel   |            Map View            |    Editor Panel    |
+|   (Left Sidebar)  |        (Central Canvas)        |  (Right Sidebar)   |
+|                   |                                |                    |
+| - Data Sources    | - Interactive SUMO Network     | - Inferred Schema  |
+| - Local / Global  | - Junctions (Nodes)            | - Physical Units   |
+| - Association     | - Directional Roads (Edges)    | - Manual Override  |
+|                   | - Edge Pair Highlighting       | - Real Road Names  |
+|                   |                                |                    |
++-------------------+--------------------------------+--------------------+
+| Status Bar: Ready / Progress / System Telemetry                         |
++-------------------------------------------------------------------------+
+```
+
+---
+
+## 1. Importing the Network Topology
+
+1. Click **Open Map** on the main toolbar (or press `Ctrl+M`).
+2. Navigate to your SUMO network file:
+   * Standard XML: `*.net.xml`
+   * Compressed XML: `*.net.xml.gz`
+3. The network topology will render on the central canvas:
+   * **Zoom**: Use the mouse scroll wheel.
+   * **Pan**: Click and drag on empty canvas space.
+   * **Inspect**: Click on any junction (Node) or road segment (Edge) to inspect its properties.
+
+---
+
+## 2. Adding Sensor Data Sources
+
+1. Click **Add Source** on the toolbar.
+2. Select a directory containing your sensor files (CSV, JSON, XML, or Excel).
+3. The system scans the directory, detects supported file types, and adds the source to the **Sources Panel** on the left.
+4. Each entry displays:
+   * Source Name (folder name).
+   * Detected file formats (e.g. `[CSV]`, `[JSON]`).
+   * Current association status (`UNASSOCIATED`, `GLOBAL`, or `LOCAL`).
+
+---
+
+## 3. Configuring Associations
+
+Data sources must be associated with the network topology before dataset generation:
+
+### Option A: Local Association (Specific Road or Intersection)
+1. Select a data source from the left panel and click **Associate**.
+2. Click directly on the target road segment (Edge) on the map.
+3. **Automatic Road Pairing**: SFusion automatically detects and highlights both directions of the road (e.g., forward `123` and reverse `-123`), ensuring physical alignment.
+4. The edge will highlight in green or custom selection color, indicating active linkage.
+
+### Option B: Global Association (Entire Simulation Network)
+1. Right-click the data source in the **Sources Panel**.
+2. Select **Set as Global** from the context menu.
+3. Global sources apply ambient variables (e.g. weather, citywide limits) across all network segments simultaneously.
+
+---
+
+## 4. Validating and Overriding AI Schema Mapping
+
+When a data source is selected or associated, the embedded Small Language Model (*Phi-4-mini*) automatically infers the sensor schema.
+
+1. Select the road or data source to open the **Editor Panel** on the right.
+2. Review the inferred parameters in the **Kinematic Blueprint**:
+   * **Speed Column** and measurement unit (`km/h`, `m/s`, `mph`).
+   * **Flow Column** (traffic volume).
+   * **Intensity Column** (congestion/jam index).
+   * **Base Kinematics** (distance, time, occupancy).
+   * **Confidence Score** generated by the neural model.
+3. **Manual Override**: If the AI misidentified a column or if you wish to change the target field, use the dropdown selectors to pick the exact column manually.
+4. **Road Renaming**: Enter a human-readable street name (e.g. *"5th Avenue"*) to enrich downstream reporting.
+5. Click **Save** in the Editor Panel to commit the changes to application state.
+
+---
+
+## 5. Generating the Final Dataset (`.parquet`)
+
+Once all required sources are mapped, the **Generate Dataset** action becomes enabled:
+
+1. Click **Generate Dataset** on the toolbar.
+2. Choose an output directory and filename (e.g. `simulation_dataset.parquet`).
+3. The automated pipeline executes:
+   * Initializes a hidden SQLite staging database (`.temp_sfusion_<name>.db`).
+   * Runs multi-threaded ETL workers to read, hash, and compress raw files.
+   * Compiles and executes Polars AST vector expressions to normalize all measurements to standard SI/SUMO units.
+   * Aggregates normalized traffic records into the final **Apache Parquet (`.parquet`)** file.
+   * Automatically deletes the temporary staging database and write-ahead log files.
+4. A success dialog displays the final file path and event statistics.
+
+---
+
+## 6. Saving and Loading Projects (`.sfm.json`)
+
+To preserve your work session:
+* Click **Save Project** on the toolbar to save your map path, road aliases, and associations into a lightweight `.sfm.json` project file.
+* Click **Open Project** to resume a previous mapping session instantly.
+
+---
+
+## 7. Application Settings
+
+Click **Settings** on the toolbar to customize:
+* **Interface Language**: English, Portuguese (`pt_BR`), Spanish (`es`), French (`fr`), Russian (`ru`), or Mandarin (`zh`).
+* **Map Visuals**: Background color, edge/node stroke colors, and selection highlight colors.
+* **Zoom Limits**: Minimum and maximum canvas zoom thresholds.
+
+---
+
+## 🔗 Related Documentation
+* [[docs/INDEX]] - Knowledge Base Map of Content
+* [[ARCHITECTURE]] - Technical Architecture
+* [[docs/CORE_CONCEPTS]] - Conceptual Overview
+* [[docs/SYSTEM_WORKFLOW]] - 5-Phase System Workflow
+* [[docs/DATA_MODELS]] - Schema and Parquet Specifications

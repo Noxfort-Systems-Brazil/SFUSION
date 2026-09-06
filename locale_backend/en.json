@@ -128,7 +128,8 @@
     "etl.discover_schema": "ETLWorker: Discovering Schema for '{source}' using file '{file}'",
     "etl.ingest_file": "ETLWorker [Thread {source}]: Ingested {file} in {time}s",
     "etl.init": "ETLService (Service) initialized.",
-    "etl.complete": "ETLWorker: Complete. {files} files ingested. {events} events extracted.",
+    "etl.pass2_completed": "ETLWorker: Ingestion completed ({files} files processed, {events} events extracted).",
+    "etl.complete": "ETLWorker: Ingestion complete. {files} files ingested. {events} events extracted.",
     "main.pipeline_init": "MainController: Pipeline init. Target: {target}, Staging: {staging}",
     "main.staging_complete": "MainController: Staging complete. Exporting to final Parquet...",
     "main.export_complete": "MainController: Export complete. Cleaning up staging DB...",
@@ -188,5 +189,6 @@
     "schemas.desc_distance": "Name of the column representing spatial distance or section length.",
     "schemas.desc_time": "Name of the column representing elapsed time, duration, or time variance.",
     "schemas.desc_occupancy": "Name of the column representing road occupancy (percentage of time the sensor was occupied).",
-    "schemas.desc_confidence": "Average cosine similarity confidence of the semantic matching (0.0 to 1.0)."
+    "schemas.desc_confidence": "Average cosine similarity confidence of the semantic matching (0.0 to 1.0).",
+    "errors.i18n.load_failed": "Failed to load translation file for '{lang}': {error}"
 }
