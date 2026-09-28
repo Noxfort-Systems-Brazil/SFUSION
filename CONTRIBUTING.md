@@ -11,8 +11,8 @@ Thank you for your interest in contributing to **SFusion Mapper**! We welcome co
 
 1. **Fork and Clone the Repository:**
    ```bash
-   git clone https://github.com/Noxfort-Labs/sfusion-mapper.git
-   cd sfusion-mapper
+   git clone https://github.com/Noxfort-Systems-Brazil/SFUSION.git
+   cd SFUSION
    ```
 
 2. **Create and Activate a Virtual Environment:**

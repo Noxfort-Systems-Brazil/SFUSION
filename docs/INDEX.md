@@ -12,6 +12,8 @@ Welcome to the central **Map of Content (MOC)** for **SFusion Mapper**. This kno
 | **📖 Core Concepts & Data** | Fundamental ideas, state management, and schema blueprints | [[docs/CORE_CONCEPTS\|Core Concepts]] • [[docs/SYSTEM_WORKFLOW\|System Workflow]] • [[docs/DATA_MODELS\|Data Models & Schemas]] |
 | **⚡ Processing Engines** | High-performance ETL, vector compilation, and AI inference | [[docs/ETL_PIPELINE\|ETL Pipeline]] • [[docs/MATH_ENGINE\|Vector Physics Engine]] • [[docs/NEURAL_PIPELINE\|Neural Pipeline & SLM]] • [[docs/HARDWARE_AND_CUDA\|Hardware & CUDA]] |
 | **🖥️ Guides & Operations** | Operational manual for GUI usage and configurations | [[docs/USER_GUIDE\|User Guide]] |
+| **🧪 QA & APIs** | Automated test suite, testing guidelines, and API reference | [[docs/TESTING\|Testing & QA]] • [[docs/API_REFERENCE\|API Reference]] |
+| **🌐 Multi-Language Hub** | Documentation in 6 international languages | [[docs/README\|Language Selector (en, pt-br, es, fr, ru, zh)]] |
 
 ---
 
@@ -35,9 +37,13 @@ Welcome to the central **Map of Content (MOC)** for **SFusion Mapper**. This kno
 * [[docs/NEURAL_PIPELINE]] — Phi-4-mini reasoning model, prompt builder, output parser, and neuro-symbolic resolver.
 * [[docs/HARDWARE_AND_CUDA]] — CUDA dynamic library discovery, GPU VRAM offload, and hardware telemetry.
 
-### 4. Operational Manual
+### 4. Operations, Quality Assurance & APIs
 * [[docs/USER_GUIDE]] — Step-by-step visual tutorial for loading maps, adding sensors, editing schema associations, and generating the final dataset.
+* [[docs/TESTING]] — Test suite structure (66 tests), execution, mocking strategy, and code coverage.
+* [[docs/API_REFERENCE]] — Technical specification of domain state, services, and controller classes.
+* [[docs/README]] — Central Multi-Language Hub and international navigation.
 
 ---
 
 *Return to [[README]]*
+

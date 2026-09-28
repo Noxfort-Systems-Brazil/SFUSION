@@ -1,0 +1,25 @@
+/* ==============================================================================
+   SFusion Documentation — Custom Extra CSS
+   Copyright (C) 2026 — Noxfort Systems
+   ============================================================================== */
+
+:root {
+  --md-primary-fg-color: #512da8;
+  --md-accent-fg-color: #ffb300;
+}
+
+/* Custom styles for mermaid diagrams and math rendering */
+.mermaid {
+  text-align: center;
+  margin: 1.5em 0;
+}
+
+/* Table styling enhancements */
+.md-typeset table:not([class]) {
+  font-size: 0.85rem;
+  border-collapse: collapse;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: rgba(81, 45, 168, 0.08);
+}

@@ -26,9 +26,11 @@ It allows traffic engineers, data scientists, and simulation researchers to visu
 
 ---
 
-## 📚 Documentation & Knowledge Base (Obsidian Hub)
+## 📚 Multi-Language Documentation Hub
 
-SFusion features a complete, interconnected knowledge base accessible both on GitHub and as an **Obsidian Vault**:
+🌐 **Documentation Hub:** **[🇺🇸 English](docs/en/README.md)** • **[🇧🇷 Português (Brasil)](docs/pt-br/README.md)** • **[🇪🇸 Español](docs/es/README.md)** • **[🇫🇷 Français](docs/fr/README.md)** • **[🇷🇺 Русский](docs/ru/README.md)** • **[🇨🇳 简体中文](docs/zh/README.md)** • **[📖 Central Hub](docs/README.md)**
+
+SFusion features a complete, interconnected knowledge base accessible on GitHub, rendered via **Material for MkDocs**, and organized as an **Obsidian Vault**:
 
 <div align="center">
   <table>
@@ -103,8 +105,8 @@ SFusion features a complete, interconnected knowledge base accessible both on Gi
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/Noxfort-Labs/sfusion-mapper.git
-   cd sfusion-mapper
+   git clone https://github.com/Noxfort-Systems-Brazil/SFUSION.git
+   cd SFUSION
    ```
 
 2. **Create and Activate a Virtual Environment:**

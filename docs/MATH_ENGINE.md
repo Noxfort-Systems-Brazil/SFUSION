@@ -74,7 +74,36 @@ flowchart TD
 
 ---
 
-## 🛡️ Anomaly Protection & Safe Arithmetic
+## 4. Multi-Event Aggregations (`compile_aggregations`)
+
+When processing collections of individual vehicle detection events within a sensor window, `MathEngine.compile_aggregations` compiles expressions enforcing macroscopic traffic flow theory:
+
+### 1. Space Mean Speed (Harmonic Mean)
+In traffic engineering, arithmetic mean overestimates average stream speed. SFusion calculates **Space Mean Speed ($v_s$)** via harmonic mean:
+$$v_s = \frac{N}{\sum_{i=1}^{N} \frac{1}{v_i}}$$
+
+In Polars expression syntax:
+```python
+v_col = pl.col("speed_val").drop_nulls()
+den_sum = (1.0 / pl.when(v_col == 0.0).then(None).otherwise(v_col)).sum()
+hm_expr = pl.when(v_col.len() > 0).then(
+    pl.when(den_sum > 0.0).then(v_col.len() / den_sum).otherwise(0.0)
+).otherwise(None)
+```
+
+### 2. Macroscopic Traffic Flow Rate ($q$)
+Flow rate represents vehicle throughput scaled to vehicles per hour ($\text{veh/h}$):
+$$q = \frac{N}{\Delta t_{\text{hours}}}$$
+If an explicit `flow_val` column is provided, it takes precedence as $\sum q$; otherwise, $q$ is dynamically evaluated from the time window span ($\max(t) - \min(t)$).
+
+### 3. Traffic Density & Physical Intensity ($k$)
+Traffic density is derived from the fundamental hydrodynamic equation of traffic flow ($q = k \cdot v$):
+$$k = \frac{q}{v_s} \quad [\text{veh/km}]$$
+If raw sensor reports contain millisecond occupancy ($> 100\text{ ms}$), `MathEngine` harmonizes the scale into standardized physical density $k \in [0, k_{\text{jam}}]$.
+
+---
+
+## 5. 🛡️ Anomaly Protection & Safe Arithmetic
 
 To protect downstream simulations from crashing due to sensor dropouts or division by zero, `MathEngine` enforces:
 

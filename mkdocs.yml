@@ -1,0 +1,119 @@
+# ==============================================================================
+# SFusion — MkDocs Configuration (Material for MkDocs)
+# SFusion Mapper: "Day Zero" ETL Configuration Tool for Smart Mobility
+# Copyright (C) 2026 — Noxfort Systems
+# ==============================================================================
+
+site_name: "SFusion Mapper — Technical Documentation"
+site_description: "Technical documentation and engineering guide for SFusion Mapper — Day Zero ETL Configuration Tool for Smart Cities and SUMO."
+site_author: "Gabriel Moraes — Noxfort Systems"
+copyright: "Copyright &copy; 2026 — Noxfort Systems"
+
+# ==============================================================================
+# Theme
+# ==============================================================================
+theme:
+  name: material
+  language: en
+  icon:
+    logo: material/transit-connection-variant
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Light Mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Dark Mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - navigation.path
+    - navigation.instant
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+
+# ==============================================================================
+# Markdown Extensions
+# ==============================================================================
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.arithmatex:
+      generic: true
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+# ==============================================================================
+# Plugins
+# ==============================================================================
+plugins:
+  - search
+
+# ==============================================================================
+# Navigation
+# ==============================================================================
+nav:
+  - Overview: index.md
+  - Multi-Language Hub: README.md
+  - Master MOC: INDEX.md
+  - Architecture & Core:
+    - Technical Architecture: ../ARCHITECTURE.md
+    - Core Concepts: CORE_CONCEPTS.md
+    - Data Models & Schemas: DATA_MODELS.md
+    - System Workflow: SYSTEM_WORKFLOW.md
+    - API Reference: API_REFERENCE.md
+  - Processing Engines:
+    - High-Performance ETL: ETL_PIPELINE.md
+    - Vector Physics & AST: MATH_ENGINE.md
+    - Neural Pipeline (SLM): NEURAL_PIPELINE.md
+    - Hardware & CUDA: HARDWARE_AND_CUDA.md
+  - Operations & QA:
+    - User Guide & Manual: USER_GUIDE.md
+    - Testing & QA: TESTING.md
+  - International Suites:
+    - English (Canonical): en/README.md
+    - Português (Brasil): pt-br/README.md
+    - Español: es/README.md
+    - Français: fr/README.md
+    - Русский: ru/README.md
+    - 简体中文: zh/README.md
+
+# ==============================================================================
+# Extra CSS & JavaScript
+# ==============================================================================
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
