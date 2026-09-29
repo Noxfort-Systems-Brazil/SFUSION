@@ -135,20 +135,26 @@ SFusion features a complete, interconnected knowledge base accessible on GitHub,
 
 ---
 
-## 🧪 Running Unit Tests
+## 🧪 Running Automated Tests & QA
 
-SFusion includes a comprehensive test suite covering domain entities, services, the Polars math engine, ETL workers, and CUDA loaders:
+SFusion includes an extensive automated test suite of **160 tests** achieving **>91% total code coverage** (Frontend: **~97%**, Backend: **~89%**). Tests run completely offline and headless using PySide6 offscreen integration (`QT_QPA_PLATFORM=offscreen`):
 
 ```bash
-# Run all tests
-pytest
+# Run the complete test suite (160 tests)
+QT_QPA_PLATFORM=offscreen pytest
 
 # Run tests with detailed verbosity
-pytest -v
+QT_QPA_PLATFORM=offscreen pytest -v
 
-# Run a specific test suite
-pytest tests/test_services/test_math_engine.py
+# Generate terminal coverage report across backend (src/) and frontend (ui/)
+QT_QPA_PLATFORM=offscreen pytest --cov=src --cov=ui --cov-report=term-missing
+
+# Run a specific test suite (e.g., UI map view or math engine)
+pytest tests/test_ui/test_map_view.py -v
+pytest tests/test_services/test_math_engine.py -v
 ```
+
+See [[docs/TESTING|Testing & Quality Assurance Guide]] for architectural test breakdowns, mock fixtures, and CI/CD setup.
 
 ---
 

@@ -9,12 +9,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 
 ### Added
-* Comprehensive technical documentation hub in English with dual **Obsidian-style Wikilinks** and GitHub markdown links:
-  * Master Map of Content: [[docs/INDEX]].
-  * In-depth [[docs/ETL_PIPELINE]] guide explaining multi-threaded ingestion and SQLite WAL concurrency.
-  * In-depth [[docs/MATH_ENGINE]] guide detailing Polars AST compilation and SI unit normalization.
-  * Dedicated [[docs/HARDWARE_AND_CUDA]] guide covering GPU offload and dynamic CUDA discovery.
-* Comprehensive unit test suite across domain, controllers, services, ETL, SLM, and utility layers (16 test suites).
+* Comprehensive technical documentation hub with dual **Obsidian-style Wikilinks** and GitHub markdown links across 6 languages (EN, PT-BR, ES, FR, RU, ZH).
+* Extensive automated test suite expanded to **160 tests** across 10 modules, achieving **>91% total test coverage** (Frontend: **~97%**, Backend: **~89%**):
+  * Headless offscreen Qt test environment (`QT_QPA_PLATFORM=offscreen`) in `tests/conftest.py` with global fixtures (`qapp`, `mock_i18n`, `mock_config`).
+  * Full UI component test coverage (`tests/test_ui/`): `MainWindow`, `MapView`, `SourcesPanel`, `EditorPanel`, and `SettingsDialog`.
+  * Complete controller tests (`tests/test_controllers/`): `MainController`, `MapController`, `SourcesController`, `InfoController`, and `SettingsController`.
+  * Dependency injection and graphics scene tests (`tests/test_core/`): `AppBuilder`, `MapRenderer`, and schema validation.
+* Automated code coverage defaults configured in `pyproject.toml` targeting both `--cov=src` and `--cov=ui`.
+
+### Fixed
+* Fixed `UnboundLocalError` in `src/core/app_builder.py` by scoping the `backend_i18n` import at the module level.
+* Replaced deprecated Pydantic v1 `BaseModel.copy()` with `BaseModel.model_copy()` in `src/services/neural_transformer.py`.
 
 ### Changed
 * Synchronized `pyproject.toml` dependencies with production requirements (`polars`, `pyarrow`, `pydantic`, `sentence-transformers`, `numpy`, `llama-cpp-python`).

@@ -103,6 +103,8 @@ class AppBuilder:
         return self.main_window
 
     def _build_utils(self):
+        from src.utils.i18n import backend_i18n
+
         self.config = ConfigManager("config/settings.json")
         self.config.load_config() 
 
@@ -118,7 +120,6 @@ class AppBuilder:
         self.i18n = I18nManager(locale_path, language) 
         
         # Load backend language
-        from src.utils.i18n import backend_i18n
         backend_i18n.language = language
         backend_i18n.load_locale(language)
 

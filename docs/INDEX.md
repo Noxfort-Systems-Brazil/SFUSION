@@ -39,7 +39,7 @@ Welcome to the central **Map of Content (MOC)** for **SFusion Mapper**. This kno
 
 ### 4. Operations, Quality Assurance & APIs
 * [[docs/USER_GUIDE]] — Step-by-step visual tutorial for loading maps, adding sensors, editing schema associations, and generating the final dataset.
-* [[docs/TESTING]] — Test suite structure (66 tests), execution, mocking strategy, and code coverage.
+* [[docs/TESTING]] — Test suite structure (160 tests, >91% coverage), headless Qt execution, mocking strategy, and code coverage.
 * [[docs/API_REFERENCE]] — Technical specification of domain state, services, and controller classes.
 * [[docs/README]] — Central Multi-Language Hub and international navigation.
 

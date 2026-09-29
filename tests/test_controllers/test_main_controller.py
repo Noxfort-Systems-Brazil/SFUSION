@@ -24,12 +24,6 @@ from PySide6.QtCore import QCoreApplication
 from src.main_controller import MainController
 
 
-@pytest.fixture(scope="session")
-def qapp():
-    app = QCoreApplication.instance()
-    if app is None:
-        app = QCoreApplication([])
-    yield app
 
 
 @pytest.fixture
@@ -127,3 +121,77 @@ def test_on_save_project(mock_dependencies):
         controller._on_save_project()
         project_service.save_project.assert_called_once_with("/path/to/project.json")
         main_window.show_status_message.assert_called_once()
+
+
+def test_setup_connections(mock_dependencies):
+    controller = mock_dependencies["controller"]
+    main_window = mock_dependencies["main_window"]
+    etl = mock_dependencies["etl_service"]
+    parquet = mock_dependencies["parquet_service"]
+
+    controller.setup_connections()
+    main_window.open_project_requested.connect.assert_called_once()
+    main_window.save_project_requested.connect.assert_called_once()
+    main_window.open_map_requested.connect.assert_called_once()
+    main_window.add_source_requested.connect.assert_called_once()
+    main_window.save_config_requested.connect.assert_called_once()
+    etl.ingestion_finished.connect.assert_called_once()
+    parquet.export_finished.connect.assert_called_once()
+
+
+def test_pipeline_save_config_flow(mock_dependencies, tmp_path):
+    controller = mock_dependencies["controller"]
+    persistence = mock_dependencies["persistence_service"]
+    etl = mock_dependencies["etl_service"]
+    parquet = mock_dependencies["parquet_service"]
+    main_window = mock_dependencies["main_window"]
+
+    target_file = str(tmp_path / "output.parquet")
+
+    with patch("src.main_controller.QFileDialog.getSaveFileName", return_value=(target_file, "Parquet files")), \
+         patch("src.main_controller.QMessageBox.information"):
+        
+        # 1. Start pipeline
+        controller._on_save_config()
+        persistence.save_configuration.assert_called_once()
+        etl.start_ingestion.assert_called_once()
+        main_window.set_savable_state.assert_called_with(False)
+
+        # 2. Ingestion finished -> triggers Parquet export
+        temp_db = controller._temp_db_path
+        controller._on_ingestion_finished(temp_db)
+        parquet.export_db_to_parquet.assert_called_once_with(temp_db, target_file)
+
+        # 3. Export finished -> cleanup and unlock UI
+        controller._on_export_finished()
+        main_window.set_savable_state.assert_called_with(True)
+
+
+def test_pipeline_save_config_error(mock_dependencies):
+    controller = mock_dependencies["controller"]
+    persistence = mock_dependencies["persistence_service"]
+    main_window = mock_dependencies["main_window"]
+
+    persistence.save_configuration.side_effect = RuntimeError("DB write failed")
+
+    with patch("src.main_controller.QFileDialog.getSaveFileName", return_value=("/tmp/out.parquet", "Parquet files")):
+        controller._on_save_config()
+        main_window.set_savable_state.assert_called_with(True)
+        main_window.show_error_message.assert_called_once()
+
+
+def test_cleanup_temp_files(mock_dependencies, tmp_path):
+    controller = mock_dependencies["controller"]
+    db_file = tmp_path / "test.db"
+    wal_file = tmp_path / "test.db-wal"
+    db_file.write_text("db")
+    wal_file.write_text("wal")
+
+    assert db_file.exists()
+    assert wal_file.exists()
+
+    controller._cleanup_temp_files(str(db_file))
+
+    assert not db_file.exists()
+    assert not wal_file.exists()
+

@@ -140,3 +140,4 @@ Mediators translating view events into domain mutations and managing background 
 * [[docs/MATH_ENGINE]] - Vector Physics and AST Compilation
 * [[docs/NEURAL_PIPELINE]] - Small Language Model Integration
 * [[docs/HARDWARE_AND_CUDA]] - Hardware Acceleration Guide
+* [[docs/TESTING]] - Automated Testing & Quality Assurance (160 tests, >91% coverage)

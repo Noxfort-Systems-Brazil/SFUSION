@@ -56,3 +56,4 @@ dev = [
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+addopts = "-v --cov=src --cov=ui --cov-report=term-missing"

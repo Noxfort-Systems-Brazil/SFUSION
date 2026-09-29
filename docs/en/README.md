@@ -37,7 +37,7 @@ This directory houses the canonical, comprehensive technical documentation suite
 | 🚀 **[Hardware Acceleration & CUDA](hardware_and_cuda.md)** | GPU Infrastructure | Dynamic CUDA shared library loader (`ensure_cuda_libs`), `slm_settings.json`, TensorCore utilization, CPU fallback, and system telemetry. |
 | 🔄 **[System Workflow](system_workflow.md)** | Data Lifecycle | Deterministic 5-phase execution: Map Topology Ingestion, Sensor Registration, Association & Discovery, Staging ETL, and Columnar Parquet Export. |
 | 🖥️ **[User Guide & Operations](user_guide.md)** | Operator Manual | Visual canvas navigation (pan/zoom), bidirectional edge pairing, local and global sensor association, manual schema override, and `.sfm.json` projects. |
-| 🧪 **[Testing & Quality Assurance](testing.md)** | QA Standards | 66 automated Pytest unit tests, GUI decoupling, deterministic AI mocking, code coverage generation, and test suite breakdown across 8 modules. |
+| 🧪 **[Testing & Quality Assurance](testing.md)** | QA Standards | 160 automated Pytest tests, >91% coverage across backend and frontend, headless Qt execution, deterministic AI mocking, and test suite breakdown across 10 modules. |
 | ⚡ **[Internal API Reference](api_reference.md)** | Class & Signal Contracts | Technical specification of domain state, services, repository patterns, Qt Signals, and controller mediation. |
 
 ---

@@ -37,22 +37,35 @@ Thank you for your interest in contributing to **SFusion Mapper**! We welcome co
 
 ## 🧪 Testing Standards
 
-We maintain a high standard of reliability. All new features, bug fixes, and refactors must include corresponding unit tests in `tests/`:
+We maintain a rigorous quality standard. All new features, bug fixes, and architectural refactors must maintain or exceed an **80% code coverage threshold** (SFusion currently maintains **>91% total coverage**, with **~97% frontend** and **~89% backend** coverage across 160 automated tests):
 
-* **Unit Tests**: Located under `tests/test_<layer>/` (e.g., `tests/test_services/`, `tests/test_etl/`, `tests/test_domain/`).
-* **Running Tests:**
+* **Test Organization**:
+  * `tests/test_ui/`: Frontend PySide6 widgets and dialogs (headless offscreen interaction).
+  * `tests/test_controllers/`: View/Model mediators and pipeline workers.
+  * `tests/test_core/`: Dependency injection (`AppBuilder`), schemas, and vector graphics rendering (`MapRenderer`).
+  * `tests/test_domain/`: Reactive state (`AppState`) and domain entities.
+  * `tests/test_etl/`: Sensor batch ingestion, MD5 hashing, and thread-safe SQLite WAL storage.
+  * `tests/test_services/`: Polars physics engine, Parquet export, and map importers.
+  * `tests/test_slm/`: Schema prompt builders, `<think>` token parsers, and neuro-symbolic resolvers.
+  * `tests/test_utils/`: CUDA discovery loaders, i18n managers, and telemetry.
+* **Running Tests in Headless Mode:**
   ```bash
-  # Run entire suite
-  pytest
+  # Run entire suite in offscreen Qt mode
+  QT_QPA_PLATFORM=offscreen pytest
+
+  # Run with coverage report across backend (src/) and frontend (ui/)
+  QT_QPA_PLATFORM=offscreen pytest --cov=src --cov=ui --cov-report=term-missing
 
   # Run tests with output and execution times
-  pytest -v --durations=10
+  QT_QPA_PLATFORM=offscreen pytest -v --durations=10
 
   # Run a specific test module
+  pytest tests/test_ui/test_map_view.py
   pytest tests/test_services/test_math_engine.py
   ```
 * **Offline & Mocking Requirements**:
-  Unit tests must not require a physical NVIDIA GPU or live download of the 3.5GB GGUF model. Use `unittest.mock` (such as `@patch('src.slm.llm_provider.Llama')`) to mock heavy external dependencies.
+  * **Headless GUI**: Widget tests must run in offscreen mode using the `qapp` fixture in `tests/conftest.py`. Do not invoke blocking modal loops (e.g. `QMenu.exec()` or `QDialog.exec()`); mock these dialogs when asserting triggers.
+  * **Zero Hardware Requirement**: Unit tests must not require a physical NVIDIA GPU or live download of the 3.5GB GGUF model. Use `unittest.mock` (such as `@patch('src.slm.llm_provider.Llama')`) to mock heavy external dependencies.
 
 ---
 

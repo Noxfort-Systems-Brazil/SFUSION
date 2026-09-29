@@ -177,7 +177,7 @@ class NeuralTransformer:
                 return None
 
             # Create a localized copy of the schema for this DataFrame to avoid mutating the cache
-            local_schema = schema.copy()
+            local_schema = schema.model_copy()
             local_schema.speed_col = resolve_column(local_schema.speed_col)
             local_schema.flow_col = resolve_column(local_schema.flow_col)
             local_schema.intensity_col = resolve_column(local_schema.intensity_col)

@@ -26,7 +26,7 @@ Designed to operate seamlessly on **GitHub**, as an **[Obsidian](https://obsidia
 | 🚀 **Hardware & CUDA** | GPU VRAM Offload, Dynamic Library Loader & Telemetry | [View Hardware](HARDWARE_AND_CUDA.md) |
 | 🔄 **System Workflow** | 5-Phase End-to-End Data Lifecycle | [View Workflow](SYSTEM_WORKFLOW.md) |
 | 🖥️ **User Guide & Operations** | Step-by-Step Interactive GUI Manual | [View User Guide](USER_GUIDE.md) |
-| 🧪 **Testing & QA** | 66 Pytest Automated Tests, Mocks & Code Coverage | [View Testing](TESTING.md) |
+| 🧪 **Testing & QA** | 160 Pytest Automated Tests (>91% Coverage), Headless Qt & Mocks | [View Testing](TESTING.md) |
 | ⚡ **API Reference** | Core Classes, Qt Signals, Methods & Contracts | [View API](API_REFERENCE.md) |
 
 ---
