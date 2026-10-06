@@ -74,7 +74,7 @@ class NeuralTransformer:
                     if isinstance(val, str) and val.upper() in ["NULL", "NONE", ""]:
                         setattr(schema, field, None)
                 
-                # --- PÓS-SLM VALIDATION ---
+                # --- POST-SLM VALIDATION ---
                 if assoc_type.upper() == "LOCAL":
                     if not schema.speed_col and (not schema.distance_col or not schema.time_col):
                         logging.warning(backend_i18n.t('warnings.neural.missing_speed_dist_time', sensor=folder_name))

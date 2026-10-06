@@ -33,23 +33,21 @@ from PySide6.QtWidgets import (
 
 class MapView(QGraphicsView):
     """
-    View especializada do mapa.
+    Specialized map view.
     
-    Responsabilidades:
-    - Renderizar a cena (QGraphicsScene) com fundo branco.
-    - Processar Pan (arrastar) e Zoom (scroll).
-    - Detetar cliques em itens (nós/arestas) ou espaço vazio.
-    - Emitir sinais (ex: nodeClicked) para o MapController.
+    Responsibilities:
+    - Render scene (QGraphicsScene) with white background.
+    - Process Pan (drag) and Zoom (scroll).
+    - Detect clicks on items (nodes/edges) or empty space.
+    - Emit signals (e.g. nodeClicked) to MapController.
     """
     
-    # Sinais para o MapController
+    # Signals for MapController
     nodeClicked = Signal(str)
     edgeClicked = Signal(str)
     
-    # --- CORREÇÃO PRINCIPAL AQUI ---
-    # O sinal de clique no espaço vazio não precisa de argumentos.
+    # Empty space click signal does not take arguments
     emptySpaceClicked = Signal()
-    # --- FIM DA CORREÇÃO ---
 
     def __init__(self, parent: QWidget | None = None):
         super().__init__(parent)
@@ -62,10 +60,10 @@ class MapView(QGraphicsView):
         self._is_panning = False
         self._last_pan_point = None
 
-        logging.info("MapView (View) inicializada.")
+        logging.info("MapView (View) initialized.")
 
     def _setup_view_settings(self):
-        """Define as configurações de renderização e interação."""
+        """Configure rendering and interaction settings."""
         self.setRenderHint(QPainter.Antialiasing) 
         self.scene.setBackgroundBrush(Qt.white) 
 
@@ -73,12 +71,12 @@ class MapView(QGraphicsView):
         self.setDragMode(QGraphicsView.NoDrag)
         self.setResizeAnchor(QGraphicsView.AnchorViewCenter)
 
-    # --- Métodos Públicos (Chamados pelo Renderer) ---
+    # --- Public Methods (Called by Renderer) ---
 
     @Slot()
     def fit_map_in_view(self):
         """
-        Ajusta o zoom para que todo o mapa caiba na vista.
+        Fit the whole map inside the view.
         """
         try:
             rect = self.scene.itemsBoundingRect()
@@ -89,24 +87,24 @@ class MapView(QGraphicsView):
                             rect.height() * 0.05)
                 
                 self.fitInView(rect, Qt.KeepAspectRatio)
-                logging.info(f"MapView: Zoom ajustado para o mapa. (Rect: {rect})")
+                logging.info(f"MapView: Zoom adjusted to map. (Rect: {rect})")
         except Exception as e:
-            logging.error(f"MapView: Erro ao tentar ajustar o zoom: {e}")
+            logging.error(f"MapView: Error adjusting zoom: {e}")
 
     @Slot(float, float)
     def set_zoom_limits(self, min_factor: float, max_factor: float):
-        """Define os limites mínimo e máximo de zoom."""
-        logging.info(f"MapView: Limites de zoom definidos (Min: {min_factor}, Max: {max_factor})")
+        """Define minimum and maximum zoom limits."""
+        logging.info(f"MapView: Zoom limits defined (Min: {min_factor}, Max: {max_factor})")
 
-    # --- Eventos de Interação (Pan/Zoom/Clique) ---
+    # --- Interaction Events (Pan/Zoom/Click) ---
 
     def wheelEvent(self, event):
-        """Lida com o scroll do rato (Zoom)."""
+        """Handle mouse wheel scroll (Zoom)."""
         zoom_factor = 1.25 if event.angleDelta().y() > 0 else 0.8
         self.scale(zoom_factor, zoom_factor)
 
     def mousePressEvent(self, event):
-        """Lida com o clique do rato (Início do Pan ou Clique)."""
+        """Handle mouse press (Start Pan or Click)."""
         
         if event.button() == Qt.MiddleButton:
             self._is_panning = True
@@ -123,7 +121,7 @@ class MapView(QGraphicsView):
         super().mousePressEvent(event)
 
     def mouseMoveEvent(self, event):
-        """Lida com o movimento do rato (Pan)."""
+        """Handle mouse movement (Pan)."""
         if self._is_panning:
             delta = event.pos() - self._last_pan_point
             self._last_pan_point = event.pos()
@@ -140,7 +138,7 @@ class MapView(QGraphicsView):
         super().mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event):
-        """Lida com o soltar do rato (Fim do Pan)."""
+        """Handle mouse release (End Pan)."""
         if event.button() == Qt.MiddleButton:
             self._is_panning = False
             self.setCursor(Qt.ArrowCursor)
@@ -149,13 +147,13 @@ class MapView(QGraphicsView):
             
         super().mouseReleaseEvent(event)
 
-    # --- Lógica de Clique ---
+    # --- Click Logic ---
 
     @Slot(QPoint)
     def _on_scene_clicked(self, pos: QPoint):
         """
-        Processa um clique esquerdo na cena.
-        Verifica se um item foi clicado e emite o sinal correto.
+        Process a left click on the scene.
+        Check if an item was clicked and emit the corresponding signal.
         """
         scene_pos = self.mapToScene(pos)
         item = self.itemAt(pos)
@@ -170,5 +168,5 @@ class MapView(QGraphicsView):
                 self.edgeClicked.emit(item_id)
             
         else:
-            # Esta chamada agora corresponde à definição do sinal (sem args)
+            # Signal emission matches definition (no args)
             self.emptySpaceClicked.emit()

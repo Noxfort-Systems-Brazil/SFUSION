@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# SFUSION - Script de Sincronização e Push Automatizado
-# Uso:
-#   ./sync.sh "mensagem do commit"
-#   ./sync.sh                     (usa mensagem automática com data/hora)
+# SFUSION - Automated Synchronization and Push Script
+# Usage:
+#   ./sync.sh "commit message"
+#   ./sync.sh                     (uses automated timestamped message)
 # ==============================================================================
 
 set -e
@@ -20,20 +20,20 @@ if [ -z "$COMMIT_MSG" ]; then
     COMMIT_MSG="chore: update SFUSION modules ($(date '+%Y-%m-%d %H:%M:%S'))"
 fi
 
-echo -e "${BLUE}=== [SFUSION] Sincronizando com GitHub ===${NC}"
-echo -e "${BLUE}Branch atual:${NC} ${BRANCH}"
+echo -e "${BLUE}=== [SFUSION] Synchronizing with GitHub ===${NC}"
+echo -e "${BLUE}Current branch:${NC} ${BRANCH}"
 
-echo -e "${BLUE}1/3 Adicionando arquivos...${NC}"
+echo -e "${BLUE}1/3 Staging files...${NC}"
 git add -A
 
 if git diff --cached --quiet; then
-    echo -e "${YELLOW}Nenhuma alteração nova para comitar.${NC}"
+    echo -e "${YELLOW}No new changes to commit.${NC}"
 else
-    echo -e "${BLUE}2/3 Comitando: \"${COMMIT_MSG}\"...${NC}"
+    echo -e "${BLUE}2/3 Committing: \"${COMMIT_MSG}\"...${NC}"
     git commit -m "$COMMIT_MSG"
 fi
 
-echo -e "${BLUE}3/3 Enviando para o GitHub (origin ${BRANCH})...${NC}"
+echo -e "${BLUE}3/3 Pushing to GitHub (origin ${BRANCH})...${NC}"
 git push origin "$BRANCH"
 
-echo -e "${GREEN}✔ SFUSION atualizado com sucesso no GitHub!${NC}"
+echo -e "${GREEN}✔ SFUSION successfully updated on GitHub!${NC}"

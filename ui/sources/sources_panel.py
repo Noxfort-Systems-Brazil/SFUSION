@@ -44,38 +44,38 @@ from src.domain.entities import DataSource, AssociationType
 
 class SourcesPanel(QWidget):
     """
-    View do painel lateral.
-    Exibe a lista de DataSources e os controlos de associação.
-    (Modificado para adicionar o botão "Gerar .db")
+    Side panel view.
+    Displays DataSources list and association controls.
+    (Includes the "Generate .db" button)
     """
     
-    # Sinais para o SourcesController
+    # Signals for SourcesController
     source_selection_changed = Signal(str)
     source_delete_requested = Signal(str)    
     source_modify_type_requested = Signal(str) 
     
-    # Sinal para o MainController
+    # Signal for MainController
     save_config_requested = Signal()
 
     def __init__(self, i18n: I18nManager, parent: QWidget | None = None):
         super().__init__(parent)
         self._i18n = i18n
         
-        # --- 1. Referência para o Botão Salvar ---
+        # --- 1. Reference for Save Button ---
         self.save_button = None
         
         self._init_ui()
-        logging.info("SourcesPanel (View) inicializado.")
+        logging.info("SourcesPanel (View) initialized.")
 
     def _init_ui(self):
-        """Constrói os componentes da UI."""
+        """Build UI components."""
         t = self._i18n.t
         
         layout = QVBoxLayout(self)
         layout.setContentsMargins(5, 5, 5, 5)
         layout.setSpacing(10)
 
-        # --- 1. Caixa de Lista de Fontes ---
+        # --- 1. Source List Box ---
         sources_group = QGroupBox(t("sources_panel.title"))
         sources_layout = QVBoxLayout(sources_group)
         
@@ -93,7 +93,7 @@ class SourcesPanel(QWidget):
         sources_layout.addWidget(self.sources_list_widget)
         layout.addWidget(sources_group)
 
-        # --- 2. Caixa de Controlo de Associação (Apenas Informativa) ---
+        # --- 2. Association Control Box (Informational only) ---
         association_group = QGroupBox(t("sources_panel.association_title"))
         association_layout = QVBoxLayout(association_group)
         association_layout.setSpacing(10)
@@ -113,13 +113,13 @@ class SourcesPanel(QWidget):
 
         layout.addWidget(association_group)
         
-        # --- 3. BOTÃO (Gerar .db) ---
+        # --- 3. BUTTON (Generate .db) ---
         
         layout.addStretch(1)
         
         self.save_button = QPushButton(
             QIcon.fromTheme("document-save"),
-            t("main_window.action_save_config") # "Gerar .db"
+            t("main_window.action_save_config") # "Generate .db"
         )
         self.save_button.setToolTip(t("main_window.action_save_config_tip"))
         self.save_button.setFixedHeight(40)
@@ -130,17 +130,17 @@ class SourcesPanel(QWidget):
         self.save_button.setDefault(True) 
         self.save_button.clicked.connect(self.save_config_requested)
         
-        # (Começa desabilitado por padrão)
+        # (Disabled by default)
         self.save_button.setEnabled(False)
         
         layout.addWidget(self.save_button)
-        # --- FIM DA ALTERAÇÃO ---
+        # --- END OF CHANGES ---
 
 
-    # --- Slots (Ouvem a UI) ---
+    # --- Slots (UI listeners) ---
     @Slot(QPoint)
     def _on_context_menu(self, pos: QPoint):
-        """Chamado quando o utilizador clica com o botão direito na lista."""
+        """Called when user right-clicks on the list."""
         t = self._i18n.t
         
         item = self.sources_list_widget.itemAt(pos)
@@ -172,18 +172,18 @@ class SourcesPanel(QWidget):
     
     @Slot(QListWidgetItem, QListWidgetItem)
     def _on_list_selection_changed(self, current: QListWidgetItem, previous):
-        """Chamado pela QListWidget quando a seleção (clique esquerdo) muda."""
+        """Called by QListWidget when selection (left click) changes."""
         if current:
             source_id = current.data(Qt.UserRole)
             self.source_selection_changed.emit(source_id)
         else:
             self.source_selection_changed.emit("")
 
-    # --- Métodos Públicos (Chamados pelo Controller) ---
+    # --- Public Methods (Called by Controller) ---
 
     @Slot(list)
     def update_sources_list(self, data_sources: list[DataSource]):
-        """Atualiza a QListWidget com os dados do AppState."""
+        """Update QListWidget with AppState data."""
         self.sources_list_widget.clear()
         
         if not data_sources:
@@ -204,7 +204,7 @@ class SourcesPanel(QWidget):
     
     @Slot(str)
     def set_selected_source(self, source_id: str):
-        """Define a seleção na lista."""
+        """Set selection in list."""
         if not source_id:
             self.sources_list_widget.clearSelection()
             return
@@ -217,7 +217,7 @@ class SourcesPanel(QWidget):
 
     @Slot(str)
     def set_association_type(self, assoc_type: str):
-        """Define os botões de rádio (Apenas exibição)."""
+        """Set radio buttons state (Display only)."""
         self.radio_global.setAutoExclusive(False)
         self.radio_local.setAutoExclusive(False)
         
@@ -231,12 +231,12 @@ class SourcesPanel(QWidget):
         self.radio_global.setAutoExclusive(True)
         self.radio_local.setAutoExclusive(True)
 
-    # --- 4. NOVO SLOT (Ouve o AppState) ---
+    # --- 4. NEW SLOT (Listens to AppState) ---
     @Slot(bool)
     def set_savable_state(self, is_savable: bool):
         """
-        Habilita ou desabilita o botão 'Gerar .db' principal.
-        Chamado pelo sinal 'savable_state_changed' do AppState.
+        Enable or disable the primary 'Generate .db' button.
+        Called by AppState's 'savable_state_changed' signal.
         """
         if self.save_button:
             self.save_button.setEnabled(is_savable)

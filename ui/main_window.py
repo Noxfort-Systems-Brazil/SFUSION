@@ -34,34 +34,34 @@ from PySide6.QtWidgets import (
     QMessageBox
 )
 
-# Dependências (outras partes da UI ou Utilitários)
+# Dependencies (other UI parts or utilities)
 from ui.map.map_view import MapView
 from ui.sources.sources_panel import SourcesPanel
 from src.utils.i18n import I18nManager
 from ui.editor.editor_panel import EditorPanel
-# --- NOVO IMPORT (Necessário para o ícone funcionar no executável) ---
+# --- Resource import (Required for icon resolution in executable) ---
 from src.utils.resources import resource_path 
 
 
 class MainWindow(QMainWindow):
     """
-    View principal da aplicação.
-    Contém a barra de ferramentas, barra de status e o layout
-    que organiza a MapView e o SourcesPanel.
+    Main application view.
+    Contains the toolbar, status bar, and layout
+    organizing MapView and SourcesPanel.
     """
     
-    # --- SINAIS ---
+    # --- SIGNALS ---
     open_project_requested = Signal()
     save_project_requested = Signal()
     settings_requested = Signal()
     
     open_map_requested = Signal()
     add_source_requested = Signal()
-    save_config_requested = Signal() # (Para o botão "Gerar .db")
+    save_config_requested = Signal() # (For "Generate .db" button)
 
     def __init__(self, i18n: I18nManager, parent: QWidget | None = None):
         """
-        Inicializa a janela principal.
+        Initialize the main window.
         """
         super().__init__(parent)
         self._i18n = i18n
@@ -70,37 +70,37 @@ class MainWindow(QMainWindow):
         self.map_view = None
         self.sources_panel = None
         
-        self.action_save = None # (Para "Gerar .db")
-        self.action_save_project = None # (Para "Salvar Projeto")
+        self.action_save = None # (For "Generate .db")
+        self.action_save_project = None # (For "Save Project")
         
-        # Inicializa a UI
+        # Initialize UI
         self._init_ui()
-        logging.info("MainWindow (View) inicializada.")
+        logging.info("MainWindow (View) initialized.")
 
     def _init_ui(self):
-        """Constrói os componentes da UI (barra de ferramentas, layout)."""
+        """Build UI components (toolbar, layout)."""
         
         t = self._i18n.t
         
         self.setWindowTitle(t("main_window.window_title"))
         self.setGeometry(100, 100, 1200, 800)
 
-        # --- DEFINIÇÃO DO ÍCONE DA JANELA ---
+        # --- WINDOW ICON DEFINITION ---
         try:
-            # Usa resource_path para encontrar o arquivo dentro ou fora do executável
+            # Use resource_path to locate file inside or outside executable
             icon_path = resource_path(os.path.join("assets", "icon", "logo.png"))
             self.setWindowIcon(QIcon(icon_path))
         except Exception as e:
-            logging.error(f"Não foi possível carregar o ícone: {e}")
-        # ------------------------------------
+            logging.error(f"Failed to load window icon: {e}")
+        # ------------------------------
 
-        # 1. Barra de Ferramentas (Toolbar)
+        # 1. Toolbar
         toolbar = QToolBar(t("main_window.toolbar_name"))
         toolbar.setIconSize(QSize(24, 24))
         toolbar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon) 
         self.addToolBar(toolbar)
 
-        # --- Ações de Projeto ---
+        # --- Project Actions ---
         action_open_project = QAction(
             QIcon.fromTheme("document-open"),
             t("main_window.action_open_project"), 
@@ -122,7 +122,7 @@ class MainWindow(QMainWindow):
 
         toolbar.addSeparator()
 
-        # --- Ações de Mapa e Fonte ---
+        # --- Map and Source Actions ---
         action_open_map = QAction(
             QIcon.fromTheme("folder-open"),
             t("main_window.action_open_map"), 
@@ -143,10 +143,10 @@ class MainWindow(QMainWindow):
 
         toolbar.addSeparator()
 
-        # --- Ação "Gerar .db" ---
+        # --- "Generate .db" Action ---
         self.action_save = QAction(
             QIcon.fromTheme("document-save"),
-            t("main_window.action_save_config"), # "Gerar .db"
+            t("main_window.action_save_config"), # "Generate .db"
             self
         )
         self.action_save.setStatusTip(t("main_window.action_save_config_tip"))
@@ -154,7 +154,7 @@ class MainWindow(QMainWindow):
         self.action_save.setEnabled(False) 
         toolbar.addAction(self.action_save)
         
-        # --- Ação de Configurações ---
+        # --- Settings Action ---
         toolbar.addSeparator()
         action_settings = QAction(
             QIcon.fromTheme("preferences-system"),
@@ -166,11 +166,11 @@ class MainWindow(QMainWindow):
         toolbar.addAction(action_settings)
 
 
-        # 2. Barra de Status
+        # 2. Status Bar
         self.setStatusBar(QStatusBar(self))
         self.statusBar().showMessage(t("main_window.status_ready"))
 
-        # 3. Widget Central e Layout (Splitter)
+        # 3. Central Widget and Layout (Splitter)
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
         
@@ -180,7 +180,7 @@ class MainWindow(QMainWindow):
         self.splitter = QSplitter(Qt.Horizontal)
         main_layout.addWidget(self.splitter)
 
-    # --- Métodos de "Injeção" da View ---
+    # --- View Injection Methods ---
 
     def set_editor_panel(self, editor_panel: EditorPanel):
         self.editor_panel = editor_panel
@@ -199,13 +199,13 @@ class MainWindow(QMainWindow):
         self.splitter.setStretchFactor(1, 1)
         self.splitter.setStretchFactor(2, 0)
 
-    # --- Métodos de Feedback (Chamados pelo MainController) ---
+    # --- Feedback Methods (Called by MainController) ---
 
     def show_status_message(self, message: str, timeout: int = 3000):
         self.statusBar().showMessage(message, timeout)
 
     def show_error_message(self, title: str, message: str):
-        logging.error(f"Mostrando erro para o utilizador: {title} - {message}")
+        logging.error(f"Displaying error message to user: {title} - {message}")
         QMessageBox.critical(self, title, message)
 
     def show_info_message(self, title: str, message: str):
@@ -214,7 +214,7 @@ class MainWindow(QMainWindow):
     @Slot(bool)
     def set_savable_state(self, is_savable: bool):
         """
-        Habilita ou desabilita os botões 'Gerar .db' e 'Salvar Projeto'.
+        Enable or disable 'Generate .db' and 'Save Project' actions.
         """
         if self.action_save:
             self.action_save.setEnabled(is_savable)
@@ -224,10 +224,9 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event):
         """
-        Intercepta o fecho da janela e aplica uma terminação forçada e agressiva
-        ao processo do Sistema Operativo. Isto impede que threads pesadas de C++ / GPU
-        (como a SLM) fiquem em zombie mode após o fecho do programa.
+        Intercept window close and enforce aggressive termination on the OS process.
+        Prevents C++/GPU threads (such as SLM) from lingering in zombie mode after exit.
         """
-        logging.warning("MainWindow: Fechamento agressivo da aplicação solicitado (Hard Kill).")
+        logging.warning("MainWindow: Aggressive application termination requested (Hard Kill).")
         import os
         os._exit(0)

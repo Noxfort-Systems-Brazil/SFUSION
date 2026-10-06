@@ -33,7 +33,7 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QSpacerItem,
     QSizePolicy,
-    # 1. Importar QListWidget e QListWidgetItem
+    # 1. Import QListWidget and QListWidgetItem
     QListWidget,
     QListWidgetItem
 )
@@ -44,17 +44,17 @@ from src.domain.entities import DataSource
 
 class EditorPanel(QWidget):
     """
-    View do painel lateral esquerdo (Editor).
-    Permite ao utilizador ver o ID, editar o "Nome Real"
-    e associar múltiplas fontes de dados locais (Checkboxes).
+    Left-side panel view (Editor).
+    Allows the user to view ID, edit "Real Name",
+    and associate multiple local data sources (Checkboxes).
     """
     
-    # Sinais para o InfoController
+    # Signals for InfoController
     save_clicked = Signal(str)
     close_clicked = Signal()
     
-    # 2. Sinal 'association_changed' REMOVIDO
-    # (A lógica agora é lida apenas quando se clica em "Salvar")
+    # 2. Signal 'association_changed' REMOVED
+    # (Logic is now read only when clicking "Save")
 
     def __init__(self, i18n: I18nManager, parent: QWidget | None = None):
         super().__init__(parent)
@@ -62,14 +62,14 @@ class EditorPanel(QWidget):
         self._i18n = i18n
         self._current_element_id = None
         
-        # 3. Flag '_updating_ui' REMOVIDA
+        # 3. Flag '_updating_ui' REMOVED
         
         self._init_ui()
         self.hide()
-        logging.info("EditorPanel (View) inicializado.")
+        logging.info("EditorPanel (View) initialized.")
 
     def _init_ui(self):
-        """Constrói os componentes da UI."""
+        """Build UI components."""
         t = self._i18n.t
         
         main_layout = QVBoxLayout(self)
@@ -80,15 +80,15 @@ class EditorPanel(QWidget):
         
         content_layout = QVBoxLayout(group_box)
 
-        # --- Formulário (Apenas ID e Nome) ---
+        # --- Form (ID and Name only) ---
         form_layout = QFormLayout()
         form_layout.setSpacing(10)
         
-        # Campo 1: ID do SUMO
+        # Field 1: SUMO ID
         self.sumo_id_label = QLabel(t("info_panel.sumo_id"))
         self.sumo_id_value = QLineEdit()
         self.sumo_id_value.setReadOnly(True)
-        # (Estilo de ID melhorado)
+        # (Enhanced ID styling)
         self.sumo_id_value.setStyleSheet("""
             QLineEdit {
                 background-color: #EEEEEE;
@@ -102,7 +102,7 @@ class EditorPanel(QWidget):
         """)
         form_layout.addRow(self.sumo_id_label, self.sumo_id_value)
 
-        # Campo 2: Nome Real
+        # Field 2: Real Name
         self.real_name_label = QLabel(t("info_panel.real_name"))
         self.real_name_input = QLineEdit()
         self.real_name_input.setPlaceholderText(t("info_panel.real_name_placeholder"))
@@ -110,13 +110,13 @@ class EditorPanel(QWidget):
         
         content_layout.addLayout(form_layout)
 
-        # --- 4. SUBSTITUIÇÃO (ComboBox por Lista de CheckBox) ---
+        # --- 4. REPLACEMENT (ComboBox to CheckBox list) ---
         
-        # Rótulo para a lista
+        # Label for list
         self.source_label = QLabel(t("info_panel.data_source"))
         content_layout.addWidget(self.source_label)
         
-        # A Lista
+        # The List
         self.source_list_widget = QListWidget()
         self.source_list_widget.setToolTip(t("info_panel.data_source_tip"))
         self.source_list_widget.setStyleSheet("""
@@ -125,15 +125,15 @@ class EditorPanel(QWidget):
                 border-radius: 3px;
             }
         """)
-        # Define uma altura mínima para a lista
+        # Set minimum height for list
         self.source_list_widget.setMinimumHeight(100)
         
-        # Adiciona a lista ao layout
+        # Add list to layout
         content_layout.addWidget(self.source_list_widget)
-        # --- FIM DA SUBSTITUIÇÃO ---
+        # --- END OF REPLACEMENT ---
         
 
-        # --- Botões ---
+        # --- Buttons ---
         button_layout = QHBoxLayout()
         button_layout.setSpacing(10)
         
@@ -154,39 +154,39 @@ class EditorPanel(QWidget):
         
         self.setMinimumWidth(250)
 
-    # --- Slots Internos ---
+    # --- Internal Slots ---
 
     def _on_save_clicked(self):
-        """Emite o nome real. (O Controller irá ler os checkboxes)"""
+        """Emit real name. (The Controller will read the checkboxes)."""
         new_name = self.real_name_input.text()
         self.save_clicked.emit(new_name)
 
-    # 5. Slot '_on_combo_changed' REMOVIDO
+    # 5. Slot '_on_combo_changed' REMOVED
 
-    # --- Métodos Públicos (Chamados pelo Controller) ---
+    # --- Public Methods (Called by Controller) ---
 
-    # 6. Método 'update_sources_list' MODIFICADO
+    # 6. Method 'update_sources_list' MODIFIED
     @Slot(list, set)
     def update_sources_list(self, 
                             available_sources: list[DataSource], 
                             associated_source_ids: set[str]):
         """
-        Preenche a QListWidget com checkboxes das fontes disponíveis.
+        Populate QListWidget with checkboxes for available sources.
         """
         self.source_list_widget.clear()
         
         if not available_sources:
-            # (Opcional: Adicionar um item "Nenhuma fonte local disponível")
+            # (Optional: Add "No local source available" item)
             return
 
         for source in available_sources:
             item = QListWidgetItem(source.name)
-            item.setData(Qt.UserRole, source.path) # Armazena o ID
+            item.setData(Qt.UserRole, source.path) # Store ID
             
-            # Torna o item clicável como uma checkbox
+            # Make item checkable as a checkbox
             item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
             
-            # Marca o checkbox se o ID estiver na lista de associados
+            # Check the checkbox if ID is in associated set
             if source.path in associated_source_ids:
                 item.setCheckState(Qt.Checked)
             else:
@@ -194,12 +194,12 @@ class EditorPanel(QWidget):
                 
             self.source_list_widget.addItem(item)
 
-    # 7. Método 'set_current_source' REMOVIDO (lógica agora está em update_sources_list)
+    # 7. Method 'set_current_source' REMOVED (logic is now in update_sources_list)
 
-    # 8. NOVO MÉTODO (para o Controller ler os dados)
+    # 8. NEW METHOD (for Controller to read data)
     def get_selected_source_ids(self) -> list[str]:
         """
-        Lê a lista de checkboxes e retorna os IDs dos que estão marcados.
+        Read checkbox list and return IDs of checked items.
         """
         selected_ids = []
         for i in range(self.source_list_widget.count()):
@@ -208,10 +208,10 @@ class EditorPanel(QWidget):
                 selected_ids.append(item.data(Qt.UserRole))
         return selected_ids
 
-    # 9. Assinatura de 'show_data' MODIFICADA (não precisa mais de 'source_id')
+    # 9. Method signature of 'show_data' MODIFIED (no longer needs 'source_id')
     @Slot(str, str, str)
     def show_data(self, title: str, sumo_id: str, real_name: str | None):
-        """Atualiza os campos de texto com os dados do elemento."""
+        """Update text fields with element data."""
         
         group_box = self.findChild(QGroupBox)
         if group_box:

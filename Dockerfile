@@ -1,9 +1,9 @@
-# Dockerfile para "Build & Extract"
+# Dockerfile for "Build & Extract"
 FROM python:3.12-slim-bookworm AS builder
 
 WORKDIR /app
 
-# 1. Instala ferramentas de compilação E a biblioteca problemática (libxcb-cursor0)
+# 1. Install build tools and required Qt libraries (including libxcb-cursor0)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     patchelf \
     binutils \
@@ -15,15 +15,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxcb-cursor0 \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. Instala dependências Python
+# 2. Install Python dependencies
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir pyinstaller
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 3. Copia o código fonte
+# 3. Copy source code
 COPY . .
 
-# 4. Compila o executável usando o arquivo .spec
+# 4. Compile executable using .spec file
 RUN pyinstaller --clean -y sfusion.spec

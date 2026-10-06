@@ -19,19 +19,19 @@
 # Author: Gabriel Moraes
 # Date: October 2026
 
-# Navega para o diretório raiz do projeto (onde o script está localizado)
+# Navigate to project root directory (where this script is located)
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd "$SCRIPT_DIR"
 
-# Ativa o ambiente virtual (.venv ou venv)
+# Activate virtual environment (.venv or venv)
 if [ -d ".venv" ]; then
     source .venv/bin/activate
 elif [ -d "venv" ]; then
     source venv/bin/activate
 else
-    echo "Erro: Ambiente virtual (.venv ou venv) não encontrado no diretório $SCRIPT_DIR"
+    echo "Error: Virtual environment (.venv or venv) not found in directory $SCRIPT_DIR"
     exit 1
 fi
 
-# Executa o script python repassando eventuais argumentos
+# Execute python script forwarding any arguments
 python sfusion.py "$@"
