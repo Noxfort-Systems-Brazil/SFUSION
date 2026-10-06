@@ -121,3 +121,12 @@ When the network is mapped and the user clicks **"Generate Dataset"**:
 * [[docs/ETL_PIPELINE]] - In-Depth ETL Pipeline Guide
 * [[docs/MATH_ENGINE]] - Vector Physics Calculations
 * [[docs/DATA_MODELS]] - Schema and Data Specifications
+
+---
+
+<div align="center">
+  <img src="assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
+  <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
+  <i>SYNAPSE Fusion (SFusion) Mapper • Version 0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. Licenciado sob AGPLv3.</small>
+</div>

@@ -7,7 +7,7 @@ aliases: [System Architecture, Technical Architecture, System Blueprint]
 
 This document provides a comprehensive technical breakdown of the architecture, design patterns, and layer boundaries of **SFusion Mapper**.
 
-⬅️ Back to [Main Documentation Hub](docs/SFUSION_MOC.md) | ⚡ See [ETL Pipeline](docs/ETL_PIPELINE.md) | 📐 See [Math Engine](docs/MATH_ENGINE.md) | 🧠 See [Neural Pipeline](docs/NEURAL_PIPELINE.md)
+⬅️ Back to [Main Documentation Hub](SFUSION_MOC.md) | ⚡ See [ETL Pipeline](ETL_PIPELINE.md) | 📐 See [Math Engine](MATH_ENGINE.md) | 🧠 See [Neural Pipeline](NEURAL_PIPELINE.md)
 
 ---
 
@@ -109,23 +109,23 @@ flowchart TD
 ---
 
 ## 🔗 Related Documentation
-* [Master MOC](docs/SFUSION_MOC.md) - Knowledge Base Map of Content
-* [Core Concepts](docs/CORE_CONCEPTS.md) - Conceptual Foundations
-* [System Workflow](docs/SYSTEM_WORKFLOW.md) - 5-Phase System Workflow
-* [Data Models](docs/DATA_MODELS.md) - Schemas, SQLite Tables, and Parquet Specification
-* [ETL Pipeline](docs/ETL_PIPELINE.md) - High-Performance Ingestion Engine
-* [Math Engine](docs/MATH_ENGINE.md) - Vector Physics and AST Compilation
-* [Neural Pipeline](docs/NEURAL_PIPELINE.md) - Small Language Model Integration
-* [Hardware & CUDA](docs/HARDWARE_AND_CUDA.md) - Hardware Acceleration Guide
-* [Developer Guides](docs/DEVELOPER_GUIDES.md) - Development and Setup Guide
-* [Deployment & Packaging](docs/DEPLOYMENT_AND_PACKAGING.md) - PyInstaller & Docker
-* [Testing & QA](docs/TESTING.md) - Automated Testing & Quality Assurance (160 tests, >91% coverage)
+* [Master MOC](SFUSION_MOC.md) - Knowledge Base Map of Content
+* [Core Concepts](CORE_CONCEPTS.md) - Conceptual Foundations
+* [System Workflow](SYSTEM_WORKFLOW.md) - 5-Phase System Workflow
+* [Data Models](DATA_MODELS.md) - Schemas, SQLite Tables, and Parquet Specification
+* [ETL Pipeline](ETL_PIPELINE.md) - High-Performance Ingestion Engine
+* [Math Engine](MATH_ENGINE.md) - Vector Physics and AST Compilation
+* [Neural Pipeline](NEURAL_PIPELINE.md) - Small Language Model Integration
+* [Hardware & CUDA](HARDWARE_AND_CUDA.md) - Hardware Acceleration Guide
+* [Developer Guides](DEVELOPER_GUIDES.md) - Development and Setup Guide
+* [Deployment & Packaging](DEPLOYMENT_AND_PACKAGING.md) - PyInstaller & Docker
+* [Testing & QA](TESTING.md) - Automated Testing & Quality Assurance (160 tests, >91% coverage)
 
 ---
 
 <div align="center">
-  <img src="docs/assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="48" /><br/>
+  <img src="assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
   <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
   <i>SYNAPSE Fusion (SFusion) Mapper • Version 0.1.0</i><br/>
-  <small>Licensed under the <a href="LICENSE">GNU Affero General Public License v3.0</a>. © 2026 Noxfort Systems.</small>
+  <small>© 2026 Noxfort Systems. Licenciado sob AGPLv3.</small>
 </div>

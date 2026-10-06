@@ -1,168 +1,120 @@
-# SFusion Mapper
-
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![Python: 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
-[![Framework: PySide6](https://img.shields.io/badge/Framework-PySide6%20(Qt6)-green.svg)](https://www.qt.io/)
-[![Engine: Polars](https://img.shields.io/badge/Engine-Polars-CD792C.svg)](https://pola.rs/)
-[![Format: Apache Parquet](https://img.shields.io/badge/Output-Apache%20Parquet-teal.svg)](https://parquet.apache.org/)
-
-**SFusion Mapper** is a high-performance, open-source Graphical User Interface (GUI) and data engineering application designed as the **"Day Zero" configuration and transformation engine** for the **SFusion ETL Ecosystem**.
-
-It allows traffic engineers, data scientists, and simulation researchers to visually map arbitrary, heterogeneous urban sensor streams (Waze, TomTom, loop detectors, radar cameras) onto microscopic network topologies (such as SUMO). Powered by an embedded **Small Language Model (Phi-4-mini)** and a vectorized **Polars physics engine**, SFusion normalizes disparate units and exports consolidated, production-ready **Apache Parquet (`.parquet`)** datasets.
-
 ---
-
-## ✨ Key Capabilities
-
-* 🗺️ **SUMO Map Ingestion:** Loads microscopic road networks in both standard `.net.xml` and compressed `.net.xml.gz` formats.
-* 📁 **Heterogeneous Sensor Support:** Ingests folders containing CSV, JSON, XML, and Excel telemetry datasets.
-* 🧠 **Neuro-Symbolic Schema Discovery:** Leverages a local Small Language Model (Phi-4-mini-reasoning GGUF) to deduce semantic column mappings automatically, validated against deterministic physical heuristics.
-* ⚡ **Vectorized Physics Compilation:** Uses Polars computational graphs (`pl.Expr`) to normalize speeds, flows, and intensities into standard SI / SUMO units ($km/h$, $veh/h$, $veh/km$) at memory-speed.
-* 🛣️ **Intelligent Road Pairing:** Automatically identifies and groups opposing directional road pairs (e.g., `edge_12` and `-edge_12`) for consistent naming and simultaneous sensor association.
-* 🌐 **Local & Global Mapping:** Binds sensor data either locally (to specific road segments or intersections) or globally (applying city-wide parameters).
-* 💾 **Session Persistence:** Saves visual mapping sessions, customized street names, and associations into lightweight project files (`.sfm.json`).
-* 📦 **Gold Columnar Export:** Compiles the final normalized traffic time-series into high-throughput **Apache Parquet (`.parquet`)** files.
-* 🌍 **Internationalization (i18n):** Dual-layer translation engine supporting English, Portuguese (`pt_BR`), Spanish (`es`), French (`fr`), Russian (`ru`), and Mandarin (`zh`).
-
+tags: [readme, home, sfusion]
+aliases: [Projeto SFUSION, Root]
 ---
-
-## 📚 Multi-Language Documentation Hub
-
-🌐 **Documentation Hub:** **[🇺🇸 English](docs/en/README.md)** • **[🇧🇷 Português (Brasil)](docs/pt-br/README.md)** • **[🇪🇸 Español](docs/es/README.md)** • **[🇫🇷 Français](docs/fr/README.md)** • **[🇷🇺 Русский](docs/ru/README.md)** • **[🇨🇳 简体中文](docs/zh/README.md)** • **[📖 Central Hub](docs/README.md)**
-
-SFusion features a complete, interconnected knowledge base accessible on GitHub, rendered via **Material for MkDocs**, and organized as an **Obsidian Vault**:
 
 <div align="center">
-  <table>
-    <tr>
-      <td align="center" width="25%">
-        <h3>🏗️ <a href="ARCHITECTURE.md">Architecture</a></h3>
-        <p>Clean MVC, Builder pattern, and layer specifications.</p>
-        <p><i>[[ARCHITECTURE]]</i></p>
-      </td>
-      <td align="center" width="25%">
-        <h3>📚 <a href="docs/INDEX.md">Docs Hub (MOC)</a></h3>
-        <p>Central Map of Content connecting all guides.</p>
-        <p><i>[[docs/INDEX]]</i></p>
-      </td>
-      <td align="center" width="25%">
-        <h3>🧠 <a href="docs/NEURAL_PIPELINE.md">Neural & SLM</a></h3>
-        <p>Phi-4-mini inference and neuro-symbolic resolver.</p>
-        <p><i>[[docs/NEURAL_PIPELINE]]</i></p>
-      </td>
-      <td align="center" width="25%">
-        <h3>⚡ <a href="docs/ETL_PIPELINE.md">ETL Pipeline</a></h3>
-        <p>Multi-threaded ingestion and Parquet export.</p>
-        <p><i>[[docs/ETL_PIPELINE]]</i></p>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" width="25%">
-        <h3>📐 <a href="docs/MATH_ENGINE.md">Math Engine</a></h3>
-        <p>Polars AST compilation and SI unit normalization.</p>
-        <p><i>[[docs/MATH_ENGINE]]</i></p>
-      </td>
-      <td align="center" width="25%">
-        <h3>🗃️ <a href="docs/DATA_MODELS.md">Data Models</a></h3>
-        <p>Entities, schemas, SQLite staging, and Parquet.</p>
-        <p><i>[[docs/DATA_MODELS]]</i></p>
-      </td>
-      <td align="center" width="25%">
-        <h3>🚀 <a href="docs/HARDWARE_AND_CUDA.md">Hardware / CUDA</a></h3>
-        <p>GPU offload, dynamic loader, and telemetry.</p>
-        <p><i>[[docs/HARDWARE_AND_CUDA]]</i></p>
-      </td>
-      <td align="center" width="25%">
-        <h3>🖥️ <a href="docs/USER_GUIDE.md">User Guide</a></h3>
-        <p>Step-by-step GUI tutorial and operations manual.</p>
-        <p><i>[[docs/USER_GUIDE]]</i></p>
-      </td>
-    </tr>
-  </table>
+
+<img src="docs/assets/sfusion-logo.png" alt="SFUSION Mapper Logo" width="130" />
+
+# SFUSION MAPPER
+### "Day Zero" ETL Configuration & Kinematic Normalization Tool
+*Noxfort Systems — A State Of Art Company*
+
+[![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=flat&logo=github)](https://github.com/Noxfort-Systems-Brazil/SFUSION)
+[![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=flat&logo=python&logoColor=white)](https://python.org/)
+[![PySide6](https://img.shields.io/badge/PySide6-Qt6-41CD52?style=flat&logo=qt&logoColor=white)](https://www.qt.io/)
+[![Polars](https://img.shields.io/badge/Engine-Polars-CD792C?style=flat&logo=polars&logoColor=white)](https://pola.rs/)
+[![Parquet](https://img.shields.io/badge/Output-Apache_Parquet-008080?style=flat&logo=apache&logoColor=white)](https://parquet.apache.org/)
+[![License](https://img.shields.io/badge/License-AGPL_v3-blue?style=flat)](LICENSE)
+
+[![SFUSION GitHub Repository Card](https://github-readme-stats.vercel.app/api/pin/?username=Noxfort-Systems-Brazil&repo=SFUSION&theme=dark)](https://github.com/Noxfort-Systems-Brazil/SFUSION)
+
+---
+
+🌐 **Translations / Idiomas:** **[🇺🇸 English](README.md)** • **[🇧🇷 Português do Brasil](docs/pt-br/README.md)** • **[🇪🇸 Español](docs/es/README.md)** • **[🇫🇷 Français](docs/fr/README.md)** • **[🇷🇺 Русский](docs/ru/README.md)** • **[🇨🇳 简体中文](docs/zh/README.md)** • **[📚 Documentation Hub](docs/README.md)**
+
+---
+
 </div>
 
----
+**SFusion Mapper** is a high-performance Graphical User Interface (GUI) and data engineering application designed as the **"Day Zero" configuration and transformation engine** for the Noxfort smart mobility ecosystem. 
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-* **Operating System:** Linux (Ubuntu 20.04+, Debian 11+, Fedora, Arch) or Windows 10/11.
-* **Python:** Version 3.9 or higher (Python 3.10 – 3.12 recommended).
-* **System Libraries (Linux):**
-  ```bash
-  sudo apt update
-  sudo apt install python3-venv build-essential libqt6gui6 libqt6widgets6 libgl1 libxcb-cursor0
-  ```
-* **Hardware Acceleration (Optional, Recommended):**
-  * NVIDIA GPU with $\ge 6$ GB VRAM (RTX 3060 or higher).
-  * NVIDIA Driver $\ge 525.60$ with CUDA 12.x support.
-  * *Note: If no GPU is available, the system falls back automatically to multi-threaded CPU execution.*
+It enables traffic engineers, simulation researchers, and urban operators to visually map arbitrary, heterogeneous sensor feeds (Waze, TomTom, inductive loops, radar cameras) onto microscopic network topologies (SUMO `.net.xml`). Powered by an embedded local Small Language Model (**Phi-4-mini**) and a vectorized **Polars physics engine**, SFusion normalizes disparate units and exports consolidated, production-ready **Apache Parquet (`.parquet`)** datasets.
 
 ---
 
-### Local Installation
+## 📚 Documentation Hub & Knowledge Vault
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/Noxfort-Systems-Brazil/SFUSION.git
-   cd SFUSION
-   ```
+Explore the full architecture, internal mechanics, and developer guides for the SFUSION ecosystem:
 
-2. **Create and Activate a Virtual Environment:**
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-3. **Install Dependencies:**
-   ```bash
-   pip install --upgrade pip
-   pip install -r requirements.txt
-   ```
-
-4. **Verify the SLM Model:**
-   The project expects the quantized model binary at:
-   ```
-   src/models/Phi-4-mini-reasoning-UD-Q6_K_XL.gguf
-   ```
-   *If the model file is not present, download it from the project releases or Hugging Face repository and place it into `src/models/`.*
-
-5. **Run the Application:**
-   ```bash
-   python sfusion.py
-   ```
+| Card / Subsystem | Focus Area | Direct Link |
+| :--- | :--- | :---: |
+| 📚 **Documentation Hub** | Central Index & Navigation for all technical docs | [Explore Hub](docs/SFUSION_MOC.md) |
+| 🏛️ **System Architecture** | Clean MVC, Builder Pattern, Service Layer & Concurrency | [View Blueprint](ARCHITECTURE.md) |
+| 📖 **Core Concepts** | "Day Zero" Paradigm, SUMO Graph & Medallion Architecture | [View Concepts](docs/CORE_CONCEPTS.md) |
+| 🗃️ **Data Models & Schemas** | Domain Entities, KinematicMap Blueprint & Parquet Specs | [View Schemas](docs/DATA_MODELS.md) |
+| ⚡ **High-Performance ETL** | Multi-threaded Sensor Ingestion & SQLite WAL Staging | [View ETL](docs/ETL_PIPELINE.md) |
+| 📐 **Vector Physics Engine** | Polars AST Compilation, SI Units & Harmonic Mean Speed | [View Math Engine](docs/MATH_ENGINE.md) |
+| 🧠 **Neural Pipeline (SLM)** | Phi-4-mini reasoning model, llama.cpp & Neuro-Symbolic Resolver | [View Neural](docs/NEURAL_PIPELINE.md) |
+| 🚀 **Hardware & CUDA** | GPU VRAM Offload, Dynamic Library Loader & Telemetry | [View Hardware](docs/HARDWARE_AND_CUDA.md) |
+| 🔄 **System Workflow** | 5-Phase End-to-End Data Transformation Lifecycle | [View Workflow](docs/SYSTEM_WORKFLOW.md) |
+| 🖥️ **User Guide & Operations** | Step-by-Step Interactive GUI Manual | [View User Guide](docs/USER_GUIDE.md) |
+| 🛠️ **Developer Guides** | Environment Setup, Sensor Parsers & Coding Standards | [View Guides](docs/DEVELOPER_GUIDES.md) |
+| 📦 **Deployment & Packaging** | PyInstaller Compilation (`sfusion.spec`), Docker & Packages | [View Packaging](docs/DEPLOYMENT_AND_PACKAGING.md) |
+| 🧪 **Testing & QA** | 160 Pytest Automated Tests (>91% Coverage), Headless Qt & Mocks | [View Guidelines](docs/TESTING.md) |
+| ⚡ **Internal API Reference** | Core Classes, Qt Signals, Methods & Contracts | [View API Reference](docs/API_REFERENCE.md) |
 
 ---
 
-## 🧪 Running Automated Tests & QA
+## ⚡ Core Architecture
 
-SFusion includes an extensive automated test suite of **160 tests** achieving **>91% total code coverage** (Frontend: **~97%**, Backend: **~89%**). Tests run completely offline and headless using PySide6 offscreen integration (`QT_QPA_PLATFORM=offscreen`):
+- **Clean MVC & Dependency Injection:** Fully decoupled architecture orchestrated by [`AppBuilder`](src/core/app_builder.py), separating PySide6 UI views from backend controllers, domain entities, and background workers.
+- **Neuro-Symbolic Schema Discovery:** Local offline SLM (Phi-4-mini via `llama.cpp`) combined with deterministic heuristic validators (`NeuroSymbolicResolver`) to deduce semantic sensor column mappings automatically.
+- **Polars Vectorized Physics Compilation:** High-throughput SIMD expressions (`pl.Expr`) compiling speed ($km/h$), distance ($km$), flow ($veh/h$), and harmonic mean speeds without Python GIL bottlenecks.
+- **Two-Tier Staging & Gold Storage:** Non-blocking SQLite WAL temporary transactions with MD5 batch hashing and zlib compression, exporting final consolidated datasets to columnar **Apache Parquet (`.parquet`)**.
+- **Dynamic NVIDIA CUDA Loader:** Runtime discovery of native CUDA runtime libraries (`libcudart.so`, `libcublas.so`) with transparent CPU fallback and GPU telemetry.
+- **Dual Internationalization (i18n):** Decoupled multi-language engine supporting UI widgets (`locale/`) and backend worker telemetry (`locale_backend/`) across 6 languages.
 
+---
+
+## 🚀 Quick Start
+
+### 1. Requirements
+Ensure you have Python 3.9+ (Python 3.10–3.12 recommended) and necessary Qt6 system libraries:
 ```bash
-# Run the complete test suite (160 tests)
-QT_QPA_PLATFORM=offscreen pytest
-
-# Run tests with detailed verbosity
-QT_QPA_PLATFORM=offscreen pytest -v
-
-# Generate terminal coverage report across backend (src/) and frontend (ui/)
-QT_QPA_PLATFORM=offscreen pytest --cov=src --cov=ui --cov-report=term-missing
-
-# Run a specific test suite (e.g., UI map view or math engine)
-pytest tests/test_ui/test_map_view.py -v
-pytest tests/test_services/test_math_engine.py -v
+sudo apt update
+sudo apt install -y python3-venv build-essential libqt6gui6 libqt6widgets6 libgl1 libxcb-cursor0
 ```
 
-See [[docs/TESTING|Testing & Quality Assurance Guide]] for architectural test breakdowns, mock fixtures, and CI/CD setup.
+### 2. Installation
+```bash
+# Clone the repository
+git clone https://github.com/Noxfort-Systems-Brazil/SFUSION.git
+cd SFUSION
+
+# Create and activate virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### 3. Running the Ecosystem
+```bash
+# Using the startup script:
+./run.sh
+
+# Or directly via Python:
+python sfusion.py
+```
 
 ---
 
+## 🧪 Testing & Validation
 
-## 🤝 Contributing
+Run the offline automated test suite (160 tests, >91% coverage):
+```bash
+QT_QPA_PLATFORM=offscreen pytest -v --cov=src --cov=ui
+```
 
-Contributions are warmly welcomed! Please review our [[CONTRIBUTING|Contribution Guidelines]] and [[CODE_OF_CONDUCT|Code of Conduct]] prior to submitting pull requests.
+---
 
-## 📄 License
-
-This project is licensed under the **GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later)**. See the [LICENSE](LICENSE) file for full details.
+<div align="center">
+  <img src="docs/assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="48" /><br/>
+  <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
+  <i>SYNAPSE Fusion (SFusion) Mapper • Version 0.1.0</i><br/>
+  <small>Licensed under the <a href="LICENSE">GNU Affero General Public License v3.0</a>. © 2026 Noxfort Systems.</small>
+</div>

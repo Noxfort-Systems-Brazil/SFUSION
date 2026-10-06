@@ -46,3 +46,12 @@ Après l'export Parquet, `MainController._cleanup_temp_files()` supprime la base
 * [Hub de Documentation](README.md)
 * [Modèles de Données](data_models.md)
 * [Flux de Travail](system_workflow.md)
+
+---
+
+<div align="center">
+  <img src="../assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
+  <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
+  <i>Ingénierie de Mobilité Intelligente • SFusion Mapper v0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. Sous licence AGPLv3.</small>
+</div>

@@ -93,3 +93,12 @@ To prevent VRAM memory leaks when running schema discovery across hundreds of da
 * [[docs/HARDWARE_AND_CUDA]] - CUDA Runtime & GPU Acceleration
 * [[docs/DATA_MODELS]] - Kinematic Schema Blueprint
 * [[docs/MATH_ENGINE]] - Vector Physics Normalization
+
+---
+
+<div align="center">
+  <img src="assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
+  <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
+  <i>SYNAPSE Fusion (SFusion) Mapper • Version 0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. Licenciado sob AGPLv3.</small>
+</div>

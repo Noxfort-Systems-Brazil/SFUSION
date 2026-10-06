@@ -74,3 +74,12 @@ The test suite in `tests/` contains **160 automated tests** providing **>91% tot
 * [[docs/MATH_ENGINE]] - Vector Physics and AST Compilation
 * [[docs/ETL_PIPELINE]] - High-Performance ETL Engine
 * [[docs/API_REFERENCE]] - Public API and Class Reference
+
+---
+
+<div align="center">
+  <img src="assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
+  <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
+  <i>SYNAPSE Fusion (SFusion) Mapper • Version 0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. Licenciado sob AGPLv3.</small>
+</div>

@@ -46,3 +46,12 @@ PRAGMA temp_store = MEMORY;
 * [文档中心首页](README.md)
 * [数据模型规范](data_models.md)
 * [系统工作流](system_workflow.md)
+
+---
+
+<div align="center">
+  <img src="../assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
+  <b>Noxfort Systems</b> — <i>卓越科技 • A State Of Art Company</i><br/>
+  <i>智慧交通出行工程 • SFusion Mapper v0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. 基于 AGPLv3 协议授权.</small>
+</div>

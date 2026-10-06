@@ -29,3 +29,12 @@ Especificación formal de clases, métodos y señales del núcleo de **SFusion M
 * [Centro de Documentación](README.md)
 * [Arquitectura](architecture.md)
 * [Pruebas](testing.md)
+
+---
+
+<div align="center">
+  <img src="../assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
+  <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
+  <i>Ingeniería de Movilidad Inteligente • SFusion Mapper v0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. Licenciado bajo AGPLv3.</small>
+</div>

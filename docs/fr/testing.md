@@ -53,3 +53,11 @@ Le rapport HTML interactif sera généré dans `htmlcov/index.html`. SFusion mai
 * [Architecture](architecture.md)
 * [Référence API](api_reference.md)
 
+---
+
+<div align="center">
+  <img src="../assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
+  <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
+  <i>Ingénierie de Mobilité Intelligente • SFusion Mapper v0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. Sous licence AGPLv3.</small>
+</div>

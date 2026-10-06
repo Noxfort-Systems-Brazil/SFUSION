@@ -85,9 +85,9 @@ plugins:
 nav:
   - Overview: index.md
   - Multi-Language Hub: README.md
-  - Master MOC: INDEX.md
+  - Master MOC: SFUSION_MOC.md
   - Architecture & Core:
-    - Technical Architecture: ../ARCHITECTURE.md
+    - Technical Architecture: ARCHITECTURE.md
     - Core Concepts: CORE_CONCEPTS.md
     - Data Models & Schemas: DATA_MODELS.md
     - System Workflow: SYSTEM_WORKFLOW.md
@@ -99,6 +99,8 @@ nav:
     - Hardware & CUDA: HARDWARE_AND_CUDA.md
   - Operations & QA:
     - User Guide & Manual: USER_GUIDE.md
+    - Developer Guides: DEVELOPER_GUIDES.md
+    - Deployment & Packaging: DEPLOYMENT_AND_PACKAGING.md
     - Testing & QA: TESTING.md
   - International Suites:
     - English (Canonical): en/README.md

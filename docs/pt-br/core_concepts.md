@@ -82,3 +82,12 @@ flowchart LR
 * [Modelos de Dados](data_models.md)
 * [Motor Físico](math_engine.md)
 * [Fluxo de Trabalho](system_workflow.md)
+
+---
+
+<div align="center">
+  <img src="../assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
+  <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
+  <i>Engenharia de Mobilidade Inteligente • SFusion Mapper v0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. Licenciado sob AGPLv3.</small>
+</div>

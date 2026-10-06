@@ -123,3 +123,12 @@ To protect downstream simulations from crashing due to sensor dropouts or divisi
 * [[docs/DATA_MODELS]] - KinematicMap Schema and Data Definitions
 * [[docs/ETL_PIPELINE]] - High-Performance ETL Ingestion Pipeline
 * [[docs/NEURAL_PIPELINE]] - Small Language Model Integration
+
+---
+
+<div align="center">
+  <img src="assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
+  <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
+  <i>SYNAPSE Fusion (SFusion) Mapper • Version 0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. Licenciado sob AGPLv3.</small>
+</div>

@@ -7,7 +7,7 @@
 *Noxfort Systems — A State Of Art Company*
 
 [![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=flat&logo=github)](https://github.com/Noxfort-Systems-Brazil/SFUSION)
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat&logo=python&logoColor=white)](https://python.org/)
+[![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=flat&logo=python&logoColor=white)](https://python.org/)
 [![PySide6](https://img.shields.io/badge/Framework-PySide6%20(Qt6)-41CD52?style=flat&logo=qt&logoColor=white)](https://www.qt.io/)
 [![Polars](https://img.shields.io/badge/Engine-Polars-CD792C?style=flat)](https://pola.rs/)
 [![Parquet](https://img.shields.io/badge/Output-Apache%20Parquet-teal?style=flat)](https://parquet.apache.org/)
@@ -47,11 +47,15 @@
 | **User Guide & GUI** | [**`en/user_guide.md`**](en/user_guide.md) | [**`pt-br/user_guide.md`**](pt-br/user_guide.md) | [**`es/user_guide.md`**](es/user_guide.md) | [**`fr/user_guide.md`**](fr/user_guide.md) | [**`ru/user_guide.md`**](ru/user_guide.md) | [**`zh/user_guide.md`**](zh/user_guide.md) |
 | **Testing & QA** | [**`en/testing.md`**](en/testing.md) | [**`pt-br/testing.md`**](pt-br/testing.md) | [**`es/testing.md`**](es/testing.md) | [**`fr/testing.md`**](fr/testing.md) | [**`ru/testing.md`**](ru/testing.md) | [**`zh/testing.md`**](zh/testing.md) |
 | **Internal API Reference** | [**`en/api_reference.md`**](en/api_reference.md) | [**`pt-br/api_reference.md`**](pt-br/api_reference.md) | [**`es/api_reference.md`**](es/api_reference.md) | [**`fr/api_reference.md`**](fr/api_reference.md) | [**`ru/api_reference.md`**](ru/api_reference.md) | [**`zh/api_reference.md`**](zh/api_reference.md) |
+| **Developer Guides** | [**`DEVELOPER_GUIDES.md`**](DEVELOPER_GUIDES.md) | [**`pt-br/developer_guides.md`**](pt-br/developer_guides.md) | — | — | — | — |
+| **Deployment & Packaging** | [**`DEPLOYMENT_AND_PACKAGING.md`**](DEPLOYMENT_AND_PACKAGING.md) | [**`pt-br/deployment_and_packaging.md`**](pt-br/deployment_and_packaging.md) | — | — | — | — |
+| **Master Documentation Hub** | [**`SFUSION_MOC.md`**](SFUSION_MOC.md) | [**`pt-br/sfusion_moc.md`**](pt-br/sfusion_moc.md) | — | — | — | — |
 
 ---
 
 <div align="center">
   <img src="assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
   <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
-  <i>SYNAPSE Fusion (SFusion) Mapper • Version 0.1.0</i>
+  <i>SYNAPSE Fusion (SFusion) Mapper • Version 0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. Licenciado sob AGPLv3.</small>
 </div>

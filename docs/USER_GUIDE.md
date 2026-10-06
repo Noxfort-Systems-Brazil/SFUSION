@@ -130,3 +130,12 @@ Click **Settings** on the toolbar to customize:
 * [[docs/CORE_CONCEPTS]] - Conceptual Overview
 * [[docs/SYSTEM_WORKFLOW]] - 5-Phase System Workflow
 * [[docs/DATA_MODELS]] - Schema and Parquet Specifications
+
+---
+
+<div align="center">
+  <img src="assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
+  <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
+  <i>SYNAPSE Fusion (SFusion) Mapper • Version 0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. Licenciado sob AGPLv3.</small>
+</div>

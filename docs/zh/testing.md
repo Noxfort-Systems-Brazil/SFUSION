@@ -53,3 +53,11 @@ QT_QPA_PLATFORM=offscreen ./.venv/bin/pytest tests/ -v --cov=src --cov=ui --cov-
 * [系统架构](architecture.md)
 * [API 参考](api_reference.md)
 
+---
+
+<div align="center">
+  <img src="../assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
+  <b>Noxfort Systems</b> — <i>卓越科技 • A State Of Art Company</i><br/>
+  <i>智慧交通出行工程 • SFusion Mapper v0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. 基于 AGPLv3 协议授权.</small>
+</div>

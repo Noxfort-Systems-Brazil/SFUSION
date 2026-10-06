@@ -15,9 +15,9 @@ Designed to operate seamlessly on **GitHub**, as an **[Obsidian](https://obsidia
 
 | Subsystem / Dimension | Focus Area | Direct Link |
 | :--- | :--- | :---: |
-| 📚 **Master Map of Content** | Primary Obsidian Hub & Codebase Directory Map | [Explore Hub](INDEX.md) |
+| 📚 **Master Map of Content** | Primary Obsidian Hub & Codebase Directory Map | [Explore Hub](SFUSION_MOC.md) |
 | 🌐 **Multi-Language Hub** | Select documentation in 6 international languages | [Language Selector](README.md) |
-| 🏛️ **System Architecture** | Clean MVC, Builder Pattern, Service Layer & Concurrency | [View Blueprint](../ARCHITECTURE.md) |
+| 🏛️ **System Architecture** | Clean MVC, Builder Pattern, Service Layer & Concurrency | [View Blueprint](ARCHITECTURE.md) |
 | 📖 **Core Concepts** | "Day Zero" Paradigm, SUMO Graph & Medallion Architecture | [View Concepts](CORE_CONCEPTS.md) |
 | 🗃️ **Data Models & Schemas** | Domain Entities, KinematicMap Blueprint & Parquet Specs | [View Schemas](DATA_MODELS.md) |
 | ⚡ **High-Performance ETL** | Multi-threaded Sensor Ingestion & SQLite WAL Staging | [View ETL](ETL_PIPELINE.md) |
@@ -26,6 +26,8 @@ Designed to operate seamlessly on **GitHub**, as an **[Obsidian](https://obsidia
 | 🚀 **Hardware & CUDA** | GPU VRAM Offload, Dynamic Library Loader & Telemetry | [View Hardware](HARDWARE_AND_CUDA.md) |
 | 🔄 **System Workflow** | 5-Phase End-to-End Data Lifecycle | [View Workflow](SYSTEM_WORKFLOW.md) |
 | 🖥️ **User Guide & Operations** | Step-by-Step Interactive GUI Manual | [View User Guide](USER_GUIDE.md) |
+| 🛠️ **Developer Guides** | Developer Setup, Extensibility & Architecture Rules | [View Developer Guides](DEVELOPER_GUIDES.md) |
+| 📦 **Deployment & Packaging** | Standalone Executables, Docker Builds & Desktop Integration | [View Deployment](DEPLOYMENT_AND_PACKAGING.md) |
 | 🧪 **Testing & QA** | 160 Pytest Automated Tests (>91% Coverage), Headless Qt & Mocks | [View Testing](TESTING.md) |
 | ⚡ **API Reference** | Core Classes, Qt Signals, Methods & Contracts | [View API](API_REFERENCE.md) |
 
@@ -58,5 +60,6 @@ Designed to operate seamlessly on **GitHub**, as an **[Obsidian](https://obsidia
 <div align="center">
   <img src="assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
   <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
-  <i>Smart Mobility Engineering • SFusion Mapper v0.1.0</i>
+  <i>Smart Mobility Engineering • SFusion Mapper v0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. Licenciado sob AGPLv3.</small>
 </div>

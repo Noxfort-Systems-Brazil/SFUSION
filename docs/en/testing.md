@@ -55,3 +55,11 @@ The test suite in `tests/` contains **160 automated tests** providing >91% cover
 * [Technical Architecture](architecture.md)
 * [API Reference](api_reference.md)
 
+---
+
+<div align="center">
+  <img src="../assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
+  <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
+  <i>Smart Mobility Engineering • SFusion Mapper v0.1.0</i><br/>
+  <small>© 2026 Noxfort Systems. Licensed under AGPLv3.</small>
+</div>
