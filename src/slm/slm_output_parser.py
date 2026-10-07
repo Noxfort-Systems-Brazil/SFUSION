@@ -1,27 +1,3 @@
-# SFUSION (SYNAPSE Fusion) Mapper - "Day Zero" ETL Configuration Tool
-# Copyright (C) 2026 Noxfort Systems
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-# File: src/slm/slm_output_parser.py
-# Author: Gabriel Moraes
-# Date: June 2026
-# Description:
-#    Robust output parser for SLM inference results.
-#    Extracts structured JSON schema maps and thinking content from raw LLM output,
-#    regardless of whether the model emits proper <think>...</think> tags or chat markdown.
-
 import json
 import re
 import logging

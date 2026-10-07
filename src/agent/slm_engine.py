@@ -1,27 +1,3 @@
-# SFUSION (SYNAPSE Fusion) Mapper - "Day Zero" ETL Configuration Tool
-# Copyright (C) 2026 Noxfort Systems
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-# File: src/agent/slm_engine.py
-# Author: Gabriel Moraes
-# Date: June 2026
-# Description:
-#    SLM Engine Orchestrator (Facade Pattern).
-#    Coordinates Prompt Construction, Hardware Inference, Output Parsing,
-#    and Neuro-Symbolic Domain Resolution adhering strictly to SOLID principles.
-
 import time
 import logging
 import json

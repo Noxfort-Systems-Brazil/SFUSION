@@ -1,15 +1,3 @@
-# SFusion (SYNAPSE Fusion) Mapper - "Day Zero" ETL Configuration Tool
-# Copyright (C) 2026 Noxfort Systems
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
-
-# File: tests/test_etl/test_sensor_processor.py
-# Author: Gabriel Moraes
-# Date: June 2026
-
 import pytest
 import os
 import zlib
