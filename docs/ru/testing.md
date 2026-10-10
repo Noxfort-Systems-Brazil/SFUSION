@@ -1,6 +1,6 @@
 # 🧪 Тестирование и обеспечение качества
 
-Набор тестов SFusion включает **160 автоматизированных тестов** Pytest, обеспечивающих >91% покрытия кода во всех подсистемах: доменная модель, интерфейс (UI), контроллеры, конвейер ETL, расчеты в Polars и инференс SLM.
+Набор тестов SFusion включает **169 автоматизированных тестов** Pytest, обеспечивающих >91% покрытия кода во всех подсистемах: доменная модель, интерфейс (UI), контроллеры, конвейер ETL, расчеты в Polars и инференс SLM.
 
 ⬅️ [Главный Хаб](README.md) | 🏛️ [Архитектура](architecture.md) | ⚡ [Спецификация API](api_reference.md)
 
@@ -23,11 +23,11 @@ QT_QPA_PLATFORM=offscreen ./.venv/bin/pytest tests/ -v --cov=src --cov=ui --cov-
 
 ---
 
-## 2. Структура тестов (160 тестов в 10 модулях)
+## 2. Структура тестов (169 тестов в 10 модулях)
 
 | Модуль | Файл тестов | Тестируемый компонент | Проверяемое поведение |
 | :--- | :--- | :--- | :--- |
-| **Компоненты UI** | `test_editor_panel.py`<br/>`test_sources_panel.py`<br/>`test_map_view.py`<br/>`test_settings_dialog.py`<br/>`test_main_window.py` | Виджеты Qt (`ui/`) | Offscreen-тестирование без X11/Wayland, раскладки, сигналы/слоты, выбор в списках, контекстные меню, зум/панорамирование (~97% покрытия). |
+| **Компоненты UI** | `test_editor_panel.py`<br/>`test_sources_panel.py`<br/>`test_map_view.py`<br/>`test_settings_dialog.py`<br/>`test_shared_dialogs.py`<br/>`test_main_window.py` | Виджеты Qt (`ui/`) | Offscreen-тестирование без X11/Wayland, раскладки, сигналы/слоты, выбор в списках, контекстные меню, зум/панорамирование, стандартизированные диалоги (~97% покрытия). |
 | **Контроллеры** | `test_main_controller.py`<br/>`test_info_controller.py`<br/>`test_map_controller.py`<br/>`test_sources_controller.py`<br/>`test_settings_controller.py` | Контроллеры (`src/controllers/`) | Координация 5 фаз конвейера (Persist -> ETL -> Parquet -> Cleanup), визуальное выделение дорог и синхронизация с AppState. |
 | **Ядро и DI** | `test_app_builder.py`<br/>`test_map_renderer.py`<br/>`test_schemas.py` | App Builder и MapRenderer | Полное связывание зависимостей, векторная отрисовка в QGraphicsScene (полосы, узлы, стрелки) и валидация Pydantic. |
 | **SLM и рассуждения** | `test_slm_engine.py`<br/>`test_neuro_symbolic_resolver.py`<br/>`test_prompt_builder.py`<br/>`test_slm_output_parser.py` | Модуль SLM (`src/slm/`) | Детерминированное сопоставление физических единиц, эвристический анализ схем, фильтрация тегов `<think>` и генерация промптов. |

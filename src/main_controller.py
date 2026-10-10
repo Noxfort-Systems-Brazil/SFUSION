@@ -77,11 +77,17 @@ class MainController(QObject):
         self._view.save_config_requested.connect(self._on_save_config)
 
         # --- PIPELINE CHAIN ---
-        # 1. ETL Finished -> Start Parquet
+        # 1. Persistence Finished -> Start ETL
+        self._persistence.configuration_saved.connect(self._on_persistence_finished)
+        self._persistence.configuration_error.connect(self._on_pipeline_error)
+
+        # 2. ETL Finished -> Start Parquet
         self._etl.ingestion_finished.connect(self._on_ingestion_finished)
+        self._etl.ingestion_error.connect(self._on_pipeline_error)
         
-        # 2. Parquet Finished -> Delete Temp DB
+        # 3. Parquet Finished -> Delete Temp DB
         self._parquet.export_finished.connect(self._on_export_finished)
+        self._parquet.export_error.connect(self._on_pipeline_error)
 
     # --- Private Slots (Listen to View) ---
 
@@ -182,21 +188,22 @@ class MainController(QObject):
                 # Clean any leftover temp DB files from a previous interrupted run
                 self._cleanup_temp_files(self._temp_db_path)
 
-                # Step 1: Save Schema to TEMP DB
+                self._view.show_status_message(backend_i18n.t("main.status_processing"))
+
+                # Step 1: Save Schema to TEMP DB (Asynchronous: triggers _on_persistence_finished)
                 self._persistence.save_configuration(self._temp_db_path)
                 
-                # Step 2: Start ETL on TEMP DB
-                self._etl.start_ingestion(self._temp_db_path)
-                
-                self._view.show_status_message(backend_i18n.t("main.status_processing"))
-                
             except Exception as e:
-                # Unlock UI if there is an error
-                self._view.set_savable_state(True)
-                if self._view.sources_panel:
-                    self._view.sources_panel.set_savable_state(True)
-                self._cleanup_temp_files(self._temp_db_path)
-                self._view.show_error_message(t("dialog.error.title"), str(e))
+                self._on_pipeline_error(str(e))
+
+    @Slot(str)
+    def _on_persistence_finished(self, db_path: str):
+        """Automated Step 2: Trigger ETL Ingestion after schema is committed."""
+        logging.info("MainController: Schema staging complete, starting ETL ingestion.")
+        try:
+            self._etl.start_ingestion(db_path)
+        except Exception as e:
+            self._on_pipeline_error(str(e))
 
     @Slot(str)
     def _on_ingestion_finished(self, db_path: str):
@@ -207,11 +214,17 @@ class MainController(QObject):
         try:
             self._parquet.export_db_to_parquet(db_path, self._target_parquet_path)
         except Exception as e:
-            self._view.set_savable_state(True)
-            if self._view.sources_panel:
-                self._view.sources_panel.set_savable_state(True)
-            self._cleanup_temp_files(db_path)
-            self._view.show_error_message(self._i18n.t("dialog.error.title"), str(e))
+            self._on_pipeline_error(str(e))
+
+    @Slot(str)
+    def _on_pipeline_error(self, error: str):
+        """Centralized error recovery: unlocks UI, cleans temp files and displays message."""
+        logging.error(f"MainController: Pipeline execution failed: {error}")
+        self._view.set_savable_state(True)
+        if self._view.sources_panel:
+            self._view.sources_panel.set_savable_state(True)
+        self._cleanup_temp_files(self._temp_db_path)
+        self._view.show_error_message(self._i18n.t("dialog.error.title"), str(error))
 
     @Slot()
     def _on_export_finished(self):

@@ -29,8 +29,11 @@ def test_persistence_worker_create_db(tmp_path, app_state):
     app_state.add_data_source(ds)
     
     worker = PersistenceWorker(db_path, app_state)
+    finished_paths = []
+    worker.signals.finished.connect(finished_paths.append)
     worker.run()
     
+    assert finished_paths == [db_path]
     assert os.path.exists(db_path)
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -48,8 +51,23 @@ def test_persistence_worker_create_db(tmp_path, app_state):
     assert cursor.fetchone() is not None
     conn.close()
 
+def test_persistence_worker_error(app_state):
+    # Read-only directory or invalid path causing sqlite error
+    worker = PersistenceWorker("/invalid/dir/that/does/not/exist/test.db", app_state)
+    errors = []
+    worker.signals.error.connect(errors.append)
+    worker.run()
+    assert len(errors) == 1
+
 def test_persistence_service(app_state):
     service = PersistenceService(app_state)
     with patch.object(service._thread_pool, 'start') as mock_start:
         service.save_configuration('/fake/path')
         mock_start.assert_called_once()
+
+def test_persistence_service_empty_path(app_state):
+    service = PersistenceService(app_state)
+    errors = []
+    service.configuration_error.connect(errors.append)
+    service.save_configuration('')
+    assert len(errors) == 1

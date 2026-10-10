@@ -37,7 +37,7 @@ Este directorio reúne la suite completa de documentación técnica en **Españo
 | 🚀 **[Aceleración por Hardware y CUDA](hardware_and_cuda.md)** | Infraestructura de GPU | Cargador dinámico de bibliotecas CUDA (`ensure_cuda_libs`), `slm_settings.json`, uso de TensorCores, fallback para CPU y telemetría de VRAM. |
 | 🔄 **[Flujo de Trabajo del Sistema](system_workflow.md)** | Ciclo de Vida de Datos | Ejecución determinista de 5 fases: Ingesta de Red, Registro de Fuentes, Asociación y Descubrimiento, Staging ETL y Exportación a Parquet. |
 | 🖥️ **[Guía de Usuario y Operaciones](user_guide.md)** | Manual del Operador | Navegación en lienzo (zoom/pan), emparejamiento bidireccional de vías, asociación local/global, anulación manual y proyectos `.sfm.json`. |
-| 🧪 **[Pruebas y Aseguramiento de Calidad](testing.md)** | Estándares de QA | 160 pruebas automáticas con Pytest, cobertura >91% en backend y frontend, ejecución headless Qt, mocks de IA y división en 10 módulos. |
+| 🧪 **[Pruebas y Aseguramiento de Calidad](testing.md)** | Estándares de QA | 169 pruebas automáticas con Pytest, cobertura >91% en backend y frontend, ejecución headless Qt, mocks de IA y división en 10 módulos. |
 | ⚡ **[Referencia de la API Interna](api_reference.md)** | Contratos de Clases y Señales | Especificación técnica de modelos de dominio, servicios de background, repositorio DAO, señales Qt y controladores mediadores. |
 
 ---

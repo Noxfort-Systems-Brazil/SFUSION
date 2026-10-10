@@ -23,13 +23,13 @@ O relatório HTML interativo será gerado em `htmlcov/index.html`. O SFusion alc
 
 ---
 
-## 2. Estrutura da Suíte (160 Testes em 10 Módulos)
+## 2. Estrutura da Suíte (169 Testes em 10 Módulos)
 
-A suíte em `tests/` reúne **160 testes automatizados** cobrindo regras de negócio, interface gráfica, controladores, contratos Pydantic, concorrência no ETL e inferência do SLM:
+A suíte em `tests/` reúne **169 testes automatizados** cobrindo regras de negócio, interface gráfica, controladores, contratos Pydantic, concorrência no ETL e inferência do SLM:
 
 | Módulo de Teste | Arquivo de Teste | Alvo Testado | Comportamentos Verificados |
 | :--- | :--- | :--- | :--- |
-| **Interface Visual (UI)** | `test_editor_panel.py`<br/>`test_sources_panel.py`<br/>`test_map_view.py`<br/>`test_settings_dialog.py`<br/>`test_main_window.py` | Componentes Qt (`ui/`) | Interação offscreen sem servidor X11/Wayland, layouts de widgets, sinais/slots, seleção em lista, menus de contexto, pan/zoom e diálogo modal (~97% de cobertura). |
+| **Interface Visual (UI)** | `test_editor_panel.py`<br/>`test_sources_panel.py`<br/>`test_map_view.py`<br/>`test_settings_dialog.py`<br/>`test_shared_dialogs.py`<br/>`test_main_window.py` | Componentes Qt (`ui/`) | Interação offscreen sem servidor X11/Wayland, layouts de widgets, sinais/slots, seleção em lista, menus de contexto, pan/zoom, diálogos padronizados e diálogo modal (~97% de cobertura). |
 | **Controladores** | `test_main_controller.py`<br/>`test_info_controller.py`<br/>`test_map_controller.py`<br/>`test_sources_controller.py`<br/>`test_settings_controller.py` | Controladores (`src/controllers/`) | Coordenação das 5 fases do pipeline (Persistência -> ETL -> Parquet -> Limpeza), destaque visual, pareamento de vias e sincronização com AppState. |
 | **Core e DI** | `test_app_builder.py`<br/>`test_map_renderer.py`<br/>`test_schemas.py` | App Builder e Renderizador | Injeção de dependências completa, renderização gráfica (ribbon stroker, junções, setas direcionais) e validação Pydantic. |
 | **Agente SLM e Raciocínio** | `test_slm_engine.py`<br/>`test_neuro_symbolic_resolver.py`<br/>`test_prompt_builder.py`<br/>`test_slm_output_parser.py` | Pipeline SLM (`src/slm/`) | Inferência determinística de unidades, resolução heurística de esquemas, extração hierárquica de chaves, filtragem de `<think>` e geração de prompts. |

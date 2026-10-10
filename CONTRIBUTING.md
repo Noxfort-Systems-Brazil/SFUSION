@@ -37,7 +37,7 @@ Thank you for your interest in contributing to **SFusion Mapper**! We welcome co
 
 ## 🧪 Testing Standards
 
-We maintain a rigorous quality standard. All new features, bug fixes, and architectural refactors must maintain or exceed an **80% code coverage threshold** (SFusion currently maintains **>91% total coverage**, with **~97% frontend** and **~89% backend** coverage across 160 automated tests):
+We maintain a rigorous quality standard. All new features, bug fixes, and architectural refactors must maintain or exceed an **80% code coverage threshold** (SFusion currently maintains **>91% total coverage**, with **~97% frontend** and **~89% backend** coverage across 169 automated tests):
 
 * **Test Organization**:
   * `tests/test_ui/`: Frontend PySide6 widgets and dialogs (headless offscreen interaction).

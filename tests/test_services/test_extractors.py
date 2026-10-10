@@ -51,6 +51,32 @@ def test_extract_csv():
     res = ext.extract("test.csv", content, "sensor2")
     assert len(res) == 1
     assert res[0]["data_payload"]["speed"] == "50"
+    assert res[0]["event_timestamp"] == datetime.fromtimestamp(160000)
+
+
+def test_extract_csv_iso_timestamp():
+    ext = UniversalExtractor()
+    content = b'speed,date\n80,2026-06-01T15:30:00Z'
+    res = ext.extract("test.csv", content, "sensor3")
+    assert len(res) == 1
+    assert res[0]["data_payload"]["speed"] == "80"
+    assert res[0]["event_timestamp"].year == 2026
+
+
+def test_extract_excel(tmp_path):
+    import pandas as pd
+    import io
+    ext = UniversalExtractor()
+    
+    df = pd.DataFrame([{"speed": 75, "timestamp": "2026-07-01T10:00:00Z"}])
+    buffer = io.BytesIO()
+    df.to_excel(buffer, index=False)
+    raw_content = buffer.getvalue()
+    
+    res = ext.extract("data.xlsx", raw_content, "excel_sensor")
+    assert len(res) == 1
+    assert res[0]["data_payload"]["speed"] == 75
+    assert res[0]["sensor_id"] == "excel_sensor"
 
 
 def test_extract_invalid():

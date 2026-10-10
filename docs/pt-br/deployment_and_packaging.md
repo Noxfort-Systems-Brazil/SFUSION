@@ -13,7 +13,7 @@ Este documento detalha os procedimentos de empacotamento para ambientes de produ
 
 ## 1. Containerização com Docker (`Dockerfile`)
 
-O SFusion possui um [`Dockerfile`](../../Dockerfile) otimizado baseado na imagem `python:3.12-slim-bookworm`, projetado para compilação e execução de testes em esteiras de integração contínua (CI/CD).
+O SFusion possui um [`Dockerfile`](../../Dockerfile) otimizado baseado na imagem `python:3.12-slim-bookworm`, equipado com bibliotecas Qt6, X11 e fontes para executar a aplicação diretamente em contêineres ou ambientes headless de integração contínua (CI/CD).
 
 ### 1.1 Construção da Imagem Docker
 ```bash

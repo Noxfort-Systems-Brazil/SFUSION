@@ -157,6 +157,15 @@ class NeuroSymbolicResolver:
         distance_unit = cls.infer_distance_unit(data.get("distance_col"), data.get("distance_unit"))
         time_unit = cls.infer_time_unit(data.get("time_col"), data.get("time_unit"))
 
+        # 4. CONFIDENCE SCORE CALCULATION
+        is_neural = bool(raw_schema_data and (raw_schema_data.get("speed_col") or raw_schema_data.get("flow_col")))
+        if is_neural:
+            confidence = 0.99
+        elif data.get("speed_col"):
+            confidence = 0.85
+        else:
+            confidence = 0.50
+
         return KinematicMap(
             speed_col=data.get("speed_col"),
             flow_col=data.get("flow_col"),
@@ -168,5 +177,5 @@ class NeuroSymbolicResolver:
             occupancy_unit=occupancy_unit,
             distance_unit=distance_unit,
             time_unit=time_unit,
-            confidence_score=0.99
+            confidence_score=confidence
         )

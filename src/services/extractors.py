@@ -29,6 +29,43 @@ class UniversalExtractor(BaseExtractor):
             sensor_id = source_name if source_name else "generic_sensor"
             timestamp = datetime.now()
 
+            # --- Attempt Excel Parsing if extension indicates Excel ---
+            if filename.lower().endswith(('.xlsx', '.xls')):
+                try:
+                    import pandas as pd
+                    excel_df = pd.read_excel(io.BytesIO(raw_content))
+                    for record in excel_df.to_dict(orient='records'):
+                        ev_ts = timestamp
+                        for ts_key in ['timestamp', 'time', 'date', 'datetime', 'pubmillis', 'pubMillis', 'event_timestamp']:
+                            matched_k = next((k for k in record if str(k).lower() == ts_key.lower()), None)
+                            if matched_k and record[matched_k] is not None:
+                                val = record[matched_k]
+                                if isinstance(val, datetime):
+                                    ev_ts = val
+                                elif isinstance(val, (int, float)):
+                                    try:
+                                        if val > 1e11:
+                                            ev_ts = datetime.fromtimestamp(val / 1000.0)
+                                        else:
+                                            ev_ts = datetime.fromtimestamp(val)
+                                    except Exception:
+                                        pass
+                                elif isinstance(val, str):
+                                    try:
+                                        ev_ts = datetime.fromisoformat(val.replace('Z', '+00:00'))
+                                    except Exception:
+                                        pass
+                                break
+                        clean_payload = {str(k): (None if pd.isna(v) else v) for k, v in record.items()}
+                        results.append({
+                            "event_timestamp": ev_ts,
+                            "sensor_id": sensor_id,
+                            "data_payload": clean_payload
+                        })
+                    return results
+                except Exception as e:
+                    logging.debug(f"Excel parsing fallback skipped: {e}")
+
             # --- Attempt Fast JSON Parsing ---
             parsed_json = None
             try:
@@ -88,8 +125,25 @@ class UniversalExtractor(BaseExtractor):
             for row in reader:
                 try:
                     payload = dict(row)
+                    ev_ts = timestamp
+                    for ts_key in ['timestamp', 'time', 'date', 'datetime', 'pubmillis', 'pubMillis', 'event_timestamp']:
+                        matched_k = next((k for k in payload if k.lower() == ts_key.lower()), None)
+                        if matched_k and payload[matched_k]:
+                            val = payload[matched_k]
+                            try:
+                                num_val = float(val)
+                                if num_val > 1e11:
+                                    ev_ts = datetime.fromtimestamp(num_val / 1000.0)
+                                else:
+                                    ev_ts = datetime.fromtimestamp(num_val)
+                            except ValueError:
+                                try:
+                                    ev_ts = datetime.fromisoformat(str(val).replace('Z', '+00:00'))
+                                except Exception:
+                                    pass
+                            break
                     results.append({
-                        "event_timestamp": timestamp,
+                        "event_timestamp": ev_ts,
                         "sensor_id": sensor_id,
                         "data_payload": payload
                     })

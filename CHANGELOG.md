@@ -10,19 +10,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 * Comprehensive technical documentation hub with dual **Obsidian-style Wikilinks** and GitHub markdown links across 6 languages (EN, PT-BR, ES, FR, RU, ZH).
-* Extensive automated test suite expanded to **160 tests** across 10 modules, achieving **>91% total test coverage** (Frontend: **~97%**, Backend: **~89%**):
+* Extensive automated test suite expanded to **169 tests** across 10 modules, achieving **>91% total test coverage** (Frontend: **~97%**, Backend: **~89%**):
   * Headless offscreen Qt test environment (`QT_QPA_PLATFORM=offscreen`) in `tests/conftest.py` with global fixtures (`qapp`, `mock_i18n`, `mock_config`).
-  * Full UI component test coverage (`tests/test_ui/`): `MainWindow`, `MapView`, `SourcesPanel`, `EditorPanel`, and `SettingsDialog`.
+  * Full UI component test coverage (`tests/test_ui/`): `MainWindow`, `MapView`, `SourcesPanel`, `EditorPanel`, `SettingsDialog`, and `dialogs`.
   * Complete controller tests (`tests/test_controllers/`): `MainController`, `MapController`, `SourcesController`, `InfoController`, and `SettingsController`.
   * Dependency injection and graphics scene tests (`tests/test_core/`): `AppBuilder`, `MapRenderer`, and schema validation.
-* Automated code coverage defaults configured in `pyproject.toml` targeting both `--cov=src` and `--cov=ui`.
+* Native Excel (`.xlsx`, `.xls`) support and intelligent CSV timestamp extraction added to `UniversalExtractor`.
+* Rule-based heuristic fallback in `SLMEngine` via `NeuroSymbolicResolver` when local GGUF neural model is unavailable.
 
 ### Fixed
 * Fixed `UnboundLocalError` in `src/core/app_builder.py` by scoping the `backend_i18n` import at the module level.
 * Replaced deprecated Pydantic v1 `BaseModel.copy()` with `BaseModel.model_copy()` in `src/services/neural_transformer.py`.
+* Resolved race condition in `MainController`: chained asynchronous `PersistenceService` ➔ `ETLService` ➔ `ParquetService` via Qt Signals (`configuration_saved`, `ingestion_finished`, `export_finished`).
+* Centralized pipeline error propagation (`ingestion_error`, `export_error`, `configuration_error`) preventing UI lockups and orphaned temporary staging files.
+* Fixed `AttributeError` in `SettingsController._on_save()` by correctly referencing `self._main_window`.
+* Eliminated PySide6 `event.pos()` and `QMouseEvent` constructor deprecation warnings.
 
 ### Changed
-* Synchronized `pyproject.toml` dependencies with production requirements (`polars`, `pyarrow`, `pydantic`, `sentence-transformers`, `numpy`, `llama-cpp-python`).
+* Removed orphaned `sentence-transformers` dependency from `requirements.txt` and `pyproject.toml`, trimming >1 GB of unused packages.
+* Reconfigured `Dockerfile` to directly run the PySide6 application without PyInstaller / `sfusion.spec`.
 * Clarified export lifecycle in documentation: the application exports an **Apache Parquet (`.parquet`)** dataset with SQLite acting as a temporary, self-cleaning staging database.
 
 ---

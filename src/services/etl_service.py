@@ -135,10 +135,10 @@ class ETLWorker(QRunnable):
             self.signals.finished.emit(self.db_path)
             return
 
-        self.storage_repo.init_database()
         transformer = self.processor.transformer
 
         try:
+            self.storage_repo.init_database()
             transformer.initialize_encoder()
 
             total_files = 0
@@ -218,14 +218,14 @@ class ETLWorker(QRunnable):
                         logger.error(f"ETLWorker: {backend_i18n.t('errors.etl.future_failed', error=str(e))}")
 
             logger.info(backend_i18n.t("etl.pass2_completed", files=total_files, events=total_extracted_events))
-            transformer.cleanup_encoder()
 
         except Exception as e:
             logger.critical(f"ETLWorker: {backend_i18n.t('errors.etl.critical_error', error=str(e))}", exc_info=True)
             self.signals.error.emit(str(e))
+        else:
+            self.signals.finished.emit(self.db_path)
         finally:
             transformer.cleanup_encoder()
-            self.signals.finished.emit(self.db_path)
 
 
 class ETLService(QObject):

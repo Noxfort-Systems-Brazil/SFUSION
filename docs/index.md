@@ -28,7 +28,7 @@ Designed to operate seamlessly on **GitHub**, as an **[Obsidian](https://obsidia
 | 🖥️ **User Guide & Operations** | Step-by-Step Interactive GUI Manual | [View User Guide](USER_GUIDE.md) |
 | 🛠️ **Developer Guides** | Developer Setup, Extensibility & Architecture Rules | [View Developer Guides](DEVELOPER_GUIDES.md) |
 | 📦 **Deployment & Packaging** | Standalone Executables, Docker Builds & Desktop Integration | [View Deployment](DEPLOYMENT_AND_PACKAGING.md) |
-| 🧪 **Testing & QA** | 160 Pytest Automated Tests (>91% Coverage), Headless Qt & Mocks | [View Testing](TESTING.md) |
+| 🧪 **Testing & QA** | 169 Pytest Automated Tests (>91% Coverage), Headless Qt & Mocks | [View Testing](TESTING.md) |
 | ⚡ **API Reference** | Core Classes, Qt Signals, Methods & Contracts | [View API](API_REFERENCE.md) |
 
 ---

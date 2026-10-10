@@ -118,8 +118,8 @@ flowchart TD
 * [Neural Pipeline](NEURAL_PIPELINE.md) - Small Language Model Integration
 * [Hardware & CUDA](HARDWARE_AND_CUDA.md) - Hardware Acceleration Guide
 * [Developer Guides](DEVELOPER_GUIDES.md) - Development and Setup Guide
-* [Deployment & Packaging](DEPLOYMENT_AND_PACKAGING.md) - PyInstaller & Docker
-* [Testing & QA](TESTING.md) - Automated Testing & Quality Assurance (160 tests, >91% coverage)
+* [Deployment & Packaging](DEPLOYMENT_AND_PACKAGING.md) - Docker & Desktop Packaging
+* [Testing & QA](TESTING.md) - Automated Testing & Quality Assurance (169 tests, >91% coverage)
 
 ---
 

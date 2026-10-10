@@ -98,3 +98,23 @@ def test_etl_service_lifecycle(tmp_path, qapp):
 
         service.stop_ingestion()
         assert not service._current_worker._is_running
+
+
+def test_etl_worker_run_error(etl_setup):
+    worker = etl_setup["worker"]
+    app_state = etl_setup["app_state"]
+    storage_repo = etl_setup["storage_repo"]
+
+    # Add a source so run() proceeds into try block
+    source = DataSource(name="s1", path="/dummy", association_type=AssociationType.LOCAL)
+    app_state.add_data_source(source)
+    storage_repo.init_database.side_effect = RuntimeError("Fatal DB failure")
+
+    finished_signals = []
+    error_signals = []
+    worker.signals.finished.connect(finished_signals.append)
+    worker.signals.error.connect(error_signals.append)
+
+    worker.run()
+    assert len(error_signals) == 1
+    assert len(finished_signals) == 0

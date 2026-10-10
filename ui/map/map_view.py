@@ -86,13 +86,13 @@ class MapView(QGraphicsView):
         
         if event.button() == Qt.MiddleButton:
             self._is_panning = True
-            self._last_pan_point = event.pos()
+            self._last_pan_point = event.position().toPoint()
             self.setCursor(Qt.ClosedHandCursor)
             event.accept()
             return
 
         if event.button() == Qt.LeftButton:
-            self._on_scene_clicked(event.pos())
+            self._on_scene_clicked(event.position().toPoint())
             event.accept()
             return
 
@@ -101,8 +101,9 @@ class MapView(QGraphicsView):
     def mouseMoveEvent(self, event):
         """Handle mouse movement (Pan)."""
         if self._is_panning:
-            delta = event.pos() - self._last_pan_point
-            self._last_pan_point = event.pos()
+            cur_pos = event.position().toPoint()
+            delta = cur_pos - self._last_pan_point
+            self._last_pan_point = cur_pos
             
             self.horizontalScrollBar().setValue(
                 self.horizontalScrollBar().value() - delta.x()

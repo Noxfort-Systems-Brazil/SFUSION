@@ -13,7 +13,7 @@ This document details production deployment and packaging options for **SFusion 
 
 ## 1. Production Docker Containerization (`Dockerfile`)
 
-SFusion includes an optimized Docker build configuration based on `python:3.12-slim-bookworm` capable of compiling standalone assets and headless test validation.
+SFusion includes an optimized Docker build configuration based on `python:3.12-slim-bookworm` equipped with required Qt6, X11, and font libraries to run the application directly inside containerized or headless environments.
 
 ### 1.1 Building the Container Image
 ```bash

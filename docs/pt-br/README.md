@@ -40,8 +40,8 @@ Este diretório reúne toda a suíte de documentação técnica em **Português 
 | 🔄 **[Fluxo de Trabalho do Sistema](system_workflow.md)** | Ciclo de Vida dos Dados | Execução determinística em 5 fases: Ingestão de Topologia, Registro de Sensores, Associação e Descoberta, Staging ETL e Exportação Parquet. |
 | 🖥️ **[Manual de Operações e Guia do Usuário](user_guide.md)** | Manual do Operador | Navegação interativa na tela (pan/zoom), pareamento bidirecional de vias, associação local e global, override manual e projetos `.sfm.json`. |
 | 🛠️ **[Guias de Desenvolvimento e Extensão](developer_guides.md)** | Manual do Desenvolvedor | Configuração do ambiente, injeção com `AppBuilder`, novos extratores de sensores, regras de concorrência e testes. |
-| 📦 **[Implantação, Empacotamento e Containers](deployment_and_packaging.md)** | Engenharia de Release | Compilação com PyInstaller via `sfusion.spec`, Docker multi-stage e integração desktop no Linux. |
-| 🧪 **[Diretrizes de Testes e Qualidade](testing.md)** | Padrões de QA | 160 testes automatizados com Pytest, cobertura >91% no backend e frontend, execução headless Qt, mocks de IA e divisão em 10 módulos. |
+| 📦 **[Implantação, Empacotamento e Containers](deployment_and_packaging.md)** | Engenharia de Release | Compilação de binários nativos com PyInstaller, contêineres Docker e integração desktop no Linux. |
+| 🧪 **[Diretrizes de Testes e Qualidade](testing.md)** | Padrões de QA | 169 testes automatizados com Pytest, cobertura >91% no backend e frontend, execução headless Qt, mocks de IA e divisão em 10 módulos. |
 | ⚡ **[Referência da API Interna](api_reference.md)** | Contratos de Classes e Sinais | Especificação técnica do estado de domínio, serviços, padrões DAO/Repository, sinais Qt e mediação dos controladores. |
 
 ---

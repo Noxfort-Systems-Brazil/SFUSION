@@ -39,7 +39,6 @@ dependencies = [
     "pyarrow",
     "polars",
     "pydantic",
-    "sentence-transformers",
     "numpy",
     "llama-cpp-python",
     "nvidia-cuda-runtime-cu12",

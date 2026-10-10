@@ -70,6 +70,7 @@ def test_mouse_pan_interaction(map_view):
     press_event = QMouseEvent(
         QMouseEvent.Type.MouseButtonPress,
         QPointF(50, 50),
+        QPointF(50, 50),
         Qt.MiddleButton,
         Qt.MiddleButton,
         Qt.NoModifier
@@ -82,6 +83,7 @@ def test_mouse_pan_interaction(map_view):
     move_event = QMouseEvent(
         QMouseEvent.Type.MouseMove,
         QPointF(60, 70),
+        QPointF(60, 70),
         Qt.MiddleButton,
         Qt.MiddleButton,
         Qt.NoModifier
@@ -92,6 +94,7 @@ def test_mouse_pan_interaction(map_view):
     # Release ends pan
     release_event = QMouseEvent(
         QMouseEvent.Type.MouseButtonRelease,
+        QPointF(60, 70),
         QPointF(60, 70),
         Qt.MiddleButton,
         Qt.NoButton,

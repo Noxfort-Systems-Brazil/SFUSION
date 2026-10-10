@@ -21,8 +21,7 @@ SFUSION/
 ├── ARCHITECTURE.md             # Blueprint Clean MVC, Padrão Builder & Camada de Serviços
 ├── pyproject.toml              # Toolchain de build e metadados do projeto
 ├── requirements.txt            # Dependências de execução em Python
-├── sfusion.spec                # Especificação de empacotamento standalone do PyInstaller
-├── Dockerfile                  # Container multi-stage de build Linux
+├── Dockerfile                  # Container Linux e runtime direto Qt6/X11
 ├── docker-compose.yml          # Definição de composição Docker
 ├── sync.sh                     # Script de sincronização e push 1-clique com GitHub
 ├── run.sh                      # Script de inicialização com ambiente virtual
@@ -85,7 +84,7 @@ SFUSION/
 │   ├── sources/                # Inspetor de diretório de sensores e árvore de arquivos
 │   └── main_window.py          # Janela principal e orquestrador de layout
 │
-└── tests/                      # Suíte de Testes Automatizados (160 testes, >91% cobertura)
+└── tests/                      # Suíte de Testes Automatizados (169 testes, >91% cobertura)
     ├── test_controllers/       # Testes de mediação de controladores e sinais
     ├── test_core/              # Testes do AppBuilder, esquemas e MapRenderer
     ├── test_domain/            # Testes de transição de estado e entidades
@@ -118,8 +117,8 @@ SFUSION/
 ### 4. Operações, Interface Desktop e Garantia de Qualidade
 - **[Manual de Operações e Guia do Usuário](user_guide.md)**: Tutorial visual passo a passo para navegação, pareamento de vias, associação de colunas e geração do dataset.
 - **[Guias de Desenvolvimento e Extensão](developer_guides.md)**: Configuração do ambiente de desenvolvimento, padrões de codificação, criação de novos parsers e testes.
-- **[Implantação, Empacotamento e Containers](deployment_and_packaging.md)**: Compilação de binários nativos com PyInstaller via `sfusion.spec`, containers Docker multi-stage e integração desktop Linux.
-- **[Diretrizes de Testes e Qualidade](testing.md)**: Suíte com 160 testes cobrindo >91% do código, execução headless no PySide6 e mocks determinísticos.
+- **[Implantação, Empacotamento e Containers](deployment_and_packaging.md)**: Compilação de binários nativos com PyInstaller, containers Docker e integração desktop Linux.
+- **[Diretrizes de Testes e Qualidade](testing.md)**: Suíte com 169 testes cobrindo >91% do código, execução headless no PySide6 e mocks determinísticos.
 - **[Referência da API Interna](api_reference.md)**: Especificações de contratos de classes, sinais Qt, repositórios e controladores.
 
 ---

@@ -82,7 +82,7 @@ class SettingsController(QObject):
             logging.info(backend_i18n.t("controller.settings.saved"))
         except Exception as e:
             logging.error(backend_i18n.t("controller.settings.save_failed", error=str(e)))
-            self._view.show_error_message(
+            self._main_window.show_error_message(
                 t("dialog.error.title"),
                 t("dialog.error.generic_save", error=str(e))
             )

@@ -54,14 +54,19 @@ class SLMEngine:
           3. JSON Output & Thinking Token Extraction
           4. Neuro-Symbolic Physics Validation & Disambiguation
         """
-        if not self.is_available:
-            logger.warning(backend_i18n.t("slm.llama_not_installed"))
+        # 1. Prompt Construction & Key Inspection
+        prompt, available_keys = self.prompt_builder.build_prompt(raw_content, source_name, assoc_type)
+        if not prompt or not available_keys:
             return None
 
-        # 1. Prompt Construction
-        prompt, available_keys = self.prompt_builder.build_prompt(raw_content, source_name, assoc_type)
-        if not prompt:
-            return None
+        if not self.is_available:
+            logger.info("SLMEngine: LLM provider unavailable. Resolving schema via neuro-symbolic heuristics.")
+            kinematic_map = self.resolver.resolve_schema(
+                raw_schema_data={},
+                available_keys=available_keys,
+                assoc_type=assoc_type
+            )
+            return kinematic_map
 
         try:
             logger.info(backend_i18n.t("slm.inference_start", source=source_name, temp=0.0))

@@ -41,13 +41,13 @@ QT_QPA_PLATFORM=offscreen ./.venv/bin/pytest tests/test_utils/test_cuda_loader.p
 
 ---
 
-## 2. Test Suite Architecture (160 Tests Across 10 Modules)
+## 2. Test Suite Architecture (169 Tests Across 10 Modules)
 
-The test suite in `tests/` contains **160 automated tests** providing **>91% total coverage** across domain rules, frontend views, controllers, data contracts, ETL concurrency, and AI schema parsing:
+The test suite in `tests/` contains **169 automated tests** providing **>91% total coverage** across domain rules, frontend views, controllers, data contracts, ETL concurrency, and AI schema parsing:
 
 | Test Module | Test File | Target Under Test | Tested Behaviors |
 | :--- | :--- | :--- | :--- |
-| **Frontend Views** | `test_editor_panel.py`<br/>`test_sources_panel.py`<br/>`test_map_view.py`<br/>`test_settings_dialog.py`<br/>`test_main_window.py` | UI Components (`ui/`) | Offscreen headless Qt interaction, widget layouts, signals/slots, list selection, contextual menus, mouse panning/zooming, and modal configurations (~97% coverage). |
+| **Frontend Views** | `test_editor_panel.py`<br/>`test_sources_panel.py`<br/>`test_map_view.py`<br/>`test_settings_dialog.py`<br/>`test_shared_dialogs.py`<br/>`test_main_window.py` | UI Components (`ui/`) | Offscreen headless Qt interaction, widget layouts, signals/slots, list selection, contextual menus, mouse panning/zooming, standardized dialogs, and modal configurations (~97% coverage). |
 | **Controllers** | `test_main_controller.py`<br/>`test_info_controller.py`<br/>`test_map_controller.py`<br/>`test_sources_controller.py`<br/>`test_settings_controller.py` | Controllers (`src/controllers/`) | Multi-phase pipeline coordination (Persistence -> ETL -> Parquet -> Cleanup), visual highlighting, road pairing, and model synchronization. |
 | **Core & DI** | `test_app_builder.py`<br/>`test_map_renderer.py`<br/>`test_schemas.py` | App Builder & Renderer | Full dependency injection wiring, QGraphicsScene drawing (ribbon stroker, junctions, directional arrows), and Pydantic schema validation. |
 | **SLM Agent & Reasoning** | `test_slm_engine.py`<br/>`test_neuro_symbolic_resolver.py`<br/>`test_prompt_builder.py`<br/>`test_slm_output_parser.py` | SLM Pipeline (`src/slm/`) | Deterministic unit inference, heuristic schema disambiguation, hierarchical key extraction, token filtering, and prompt synthesis. |

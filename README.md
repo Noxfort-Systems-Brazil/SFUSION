@@ -51,8 +51,8 @@ Explore the full architecture, internal mechanics, and developer guides for the 
 | 🔄 **System Workflow** | 5-Phase End-to-End Data Transformation Lifecycle | [View Workflow](docs/SYSTEM_WORKFLOW.md) |
 | 🖥️ **User Guide & Operations** | Step-by-Step Interactive GUI Manual | [View User Guide](docs/USER_GUIDE.md) |
 | 🛠️ **Developer Guides** | Environment Setup, Sensor Parsers & Coding Standards | [View Guides](docs/DEVELOPER_GUIDES.md) |
-| 📦 **Deployment & Packaging** | PyInstaller Compilation (`sfusion.spec`), Docker & Packages | [View Packaging](docs/DEPLOYMENT_AND_PACKAGING.md) |
-| 🧪 **Testing & QA** | 160 Pytest Automated Tests (>91% Coverage), Headless Qt & Mocks | [View Guidelines](docs/TESTING.md) |
+| 📦 **Deployment & Packaging** | Docker Containerization, Desktop Integration & Packages | [View Packaging](docs/DEPLOYMENT_AND_PACKAGING.md) |
+| 🧪 **Testing & QA** | 169 Pytest Automated Tests (>91% Coverage), Headless Qt & Mocks | [View Guidelines](docs/TESTING.md) |
 | ⚡ **Internal API Reference** | Core Classes, Qt Signals, Methods & Contracts | [View API Reference](docs/API_REFERENCE.md) |
 
 ---
@@ -105,7 +105,7 @@ python sfusion.py
 
 ## 🧪 Testing & Validation
 
-Run the offline automated test suite (160 tests, >91% coverage):
+Run the offline automated test suite (169 tests, >91% coverage):
 ```bash
 QT_QPA_PLATFORM=offscreen pytest -v --cov=src --cov=ui
 ```

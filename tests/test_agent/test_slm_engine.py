@@ -55,3 +55,17 @@ def test_unload():
     engine = SLMEngine(provider=mock_provider)
     engine.unload()
     mock_provider.unload.assert_called_once()
+
+
+def test_slm_engine_fallback_when_llm_unavailable():
+    mock_provider = MagicMock(spec=LLMInferenceProvider)
+    mock_provider.is_available = False
+
+    engine = SLMEngine(provider=mock_provider)
+    result = engine.discover_schema('{"speed": 60, "flow": 120}', "TestSensor", "LOCAL")
+
+    assert isinstance(result, KinematicMap)
+    assert result.speed_col == "speed"
+    assert result.flow_col == "flow"
+    assert result.confidence_score == 0.85
+    mock_provider.generate.assert_not_called()

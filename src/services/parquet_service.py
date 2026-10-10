@@ -169,6 +169,7 @@ class ParquetExportWorker(QRunnable):
 
 class ParquetService(QObject):
     export_finished = Signal()
+    export_error = Signal(str)
 
     def __init__(self):
         super().__init__()
@@ -179,4 +180,5 @@ class ParquetService(QObject):
     def export_db_to_parquet(self, db_path: str, output_path: str = None):
         worker = ParquetExportWorker(db_path, output_path)
         worker.signals.finished.connect(self.export_finished)
+        worker.signals.error.connect(self.export_error)
         self._thread_pool.start(worker)

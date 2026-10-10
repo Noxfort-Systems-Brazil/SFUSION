@@ -76,3 +76,22 @@ def test_show_settings_dialog_rejected(settings_controller_setup):
 
         config.set.assert_not_called()
         config.save_config.assert_not_called()
+
+
+def test_show_settings_dialog_save_error(settings_controller_setup):
+    setup = settings_controller_setup
+    controller = setup["controller"]
+    config = setup["config"]
+    main_window = setup["main_window"]
+
+    config.save_config.side_effect = IOError("Permission denied")
+
+    with patch("src.controllers.settings_controller.SettingsDialog") as mock_dialog_cls:
+        dialog_mock = MagicMock()
+        dialog_mock.exec.return_value = QDialog.Accepted
+        dialog_mock.get_selected_language.return_value = "pt_BR"
+        mock_dialog_cls.return_value = dialog_mock
+
+        controller.show_settings_dialog()
+
+        main_window.show_error_message.assert_called_once()

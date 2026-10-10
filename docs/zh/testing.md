@@ -1,6 +1,6 @@
 # 🧪 测试与质量保证规范
 
-SFusion 拥有覆盖全面的自动化测试体系，共包含 **160 项 Pytest 自动化测试**，整体代码覆盖率超过 **91%**（前端界面 **~97%**，后端服务 **~89%**），确保领域实体模型、UI 交互、控制器流转、多线程 ETL 和本地 SLM 推理的高度稳定性。
+SFusion 拥有覆盖全面的自动化测试体系，共包含 **169 项 Pytest 自动化测试**，整体代码覆盖率超过 **91%**（前端界面 **~97%**，后端服务 **~89%**），确保领域实体模型、UI 交互、控制器流转、多线程 ETL 和本地 SLM 推理的高度稳定性。
 
 ⬅️ [文档中心](README.md) | 🏛️ [系统架构](architecture.md) | ⚡ [API 参考](api_reference.md)
 
@@ -23,11 +23,11 @@ QT_QPA_PLATFORM=offscreen ./.venv/bin/pytest tests/ -v --cov=src --cov=ui --cov-
 
 ---
 
-## 2. 测试模块划分 (160 项测试 / 10 大模块)
+## 2. 测试模块划分 (169 项测试 / 10 大模块)
 
 | 测试模块 | 测试文件 | 目标测试组件 | 核心验证行为 |
 | :--- | :--- | :--- | :--- |
-| **前端视图 (UI)** | `test_editor_panel.py`<br/>`test_sources_panel.py`<br/>`test_map_view.py`<br/>`test_settings_dialog.py`<br/>`test_main_window.py` | Qt 界面组件 (`ui/`) | 无头离屏渲染、组件布局、信号与槽绑定、列表多选、右键上下文菜单、鼠标平移缩放及模态配置 (~97% 覆盖率)。 |
+| **前端视图 (UI)** | `test_editor_panel.py`<br/>`test_sources_panel.py`<br/>`test_map_view.py`<br/>`test_settings_dialog.py`<br/>`test_shared_dialogs.py`<br/>`test_main_window.py` | Qt 界面组件 (`ui/`) | 无头离屏渲染、组件布局、信号与槽绑定、列表多选、右键上下文菜单、鼠标平移缩放、通用标准对话框及模态配置 (~97% 覆盖率)。 |
 | **控制器层** | `test_main_controller.py`<br/>`test_info_controller.py`<br/>`test_map_controller.py`<br/>`test_sources_controller.py`<br/>`test_settings_controller.py` | 流程控制器 (`src/controllers/`) | 五阶段流水线协调 (持久化 -> ETL -> Parquet -> 清理)、地图画布高亮、双向路段配对与 AppState 状态同步。 |
 | **核心与依赖注入** | `test_app_builder.py`<br/>`test_map_renderer.py`<br/>`test_schemas.py` | App Builder 与渲染器 | 完整依赖注入装配、QGraphicsScene 矢量绘制 (Ribbon Stroker、交叉路口、方向箭头) 与 Pydantic 蓝图约束校验。 |
 | **SLM 智能体与推理** | `test_slm_engine.py`<br/>`test_neuro_symbolic_resolver.py`<br/>`test_prompt_builder.py`<br/>`test_slm_output_parser.py` | SLM 神经管线 (`src/slm/`) | 确定性单位推导、启发式候选模式判定、点分层级键名提取、`<think>` 标签清洗与动态 Prompt 生成。 |

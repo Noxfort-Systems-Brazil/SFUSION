@@ -130,7 +130,7 @@ velocidade_harmonica = pl.count() / (1.0 / pl.col("velocidade_mps")).sum()
 
 ## 5. Diretrizes de Testes Automatizados
 
-Mantemos o padrão de cobertura mínima de **80%** (suíte atual com **160 testes e >91% de cobertura global**).
+Mantemos o padrão de cobertura mínima de **80%** (suíte atual com **169 testes e >91% de cobertura global**).
 
 ### 5.1 Execução Headless
 Todos os testes rodam em modo offscreen sem abrir janelas gráficas:

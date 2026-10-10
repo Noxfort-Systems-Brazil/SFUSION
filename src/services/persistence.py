@@ -1,10 +1,16 @@
 import logging
 import sqlite3
 import json
-from PySide6.QtCore import QObject, Slot, QRunnable, QThreadPool
+from PySide6.QtCore import QObject, Slot, QRunnable, QThreadPool, Signal
 from src.utils.i18n import backend_i18n
 
 from src.domain.app_state import AppState
+
+
+class PersistenceWorkerSignals(QObject):
+    """Signals for PersistenceWorker."""
+    finished = Signal(str)
+    error = Signal(str)
 
 
 class PersistenceWorker(QRunnable):
@@ -16,6 +22,7 @@ class PersistenceWorker(QRunnable):
         super().__init__()
         self.file_path = file_path
         self._app_state = app_state 
+        self.signals = PersistenceWorkerSignals()
 
     @Slot()
     def run(self):
@@ -28,11 +35,16 @@ class PersistenceWorker(QRunnable):
             
             self._create_database_and_save(nodes, edges, sources)
             logging.info(backend_i18n.t("persistence.worker.success", path=self.file_path))
+            self.signals.finished.emit(self.file_path)
 
         except sqlite3.Error as e:
-            logging.error(backend_i18n.t("persistence.worker.sqlite_error", path=self.file_path, e=str(e)))
+            err_msg = backend_i18n.t("persistence.worker.sqlite_error", path=self.file_path, e=str(e))
+            logging.error(err_msg)
+            self.signals.error.emit(err_msg)
         except Exception as e:
-            logging.error(backend_i18n.t("persistence.worker.error", e=str(e)), exc_info=True)
+            err_msg = backend_i18n.t("persistence.worker.error", e=str(e))
+            logging.error(err_msg, exc_info=True)
+            self.signals.error.emit(err_msg)
 
     def _create_database_and_save(self, nodes, edges, sources):
         """
@@ -142,6 +154,8 @@ class PersistenceService(QObject):
     Persistence service. Manages the thread pool to save
     the AppState to a .db (SQLite) file.
     """
+    configuration_saved = Signal(str)
+    configuration_error = Signal(str)
     
     def __init__(self, app_state: AppState):
         super().__init__()
@@ -156,6 +170,7 @@ class PersistenceService(QObject):
         """
         if not file_path:
             logging.warning(backend_i18n.t('persistence.save.no_path'))
+            self.configuration_error.emit("Path is empty")
             return
             
         if not file_path.endswith(".db"):
@@ -163,5 +178,7 @@ class PersistenceService(QObject):
             logging.info(backend_i18n.t("persistence.save.fix_path", path=file_path))
 
         worker = PersistenceWorker(file_path, self._app_state)
+        worker.signals.finished.connect(self.configuration_saved)
+        worker.signals.error.connect(self.configuration_error)
         
         self._thread_pool.start(worker)

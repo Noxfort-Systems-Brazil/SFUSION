@@ -1,6 +1,6 @@
 # 🧪 Directrices de Pruebas y Validación de Calidad
 
-SFusion cuenta con **160 pruebas automáticas** en Pytest que cubren >91% de los subsistemas de dominio, interfaz visual (UI), controladores, ETL, modelos físicos y análisis SLM.
+SFusion cuenta con **169 pruebas automáticas** en Pytest que cubren >91% de los subsistemas de dominio, interfaz visual (UI), controladores, ETL, modelos físicos y análisis SLM.
 
 ⬅️ [Centro de Documentación](README.md) | 🏛️ [Arquitectura](architecture.md) | ⚡ [Referencia de API](api_reference.md)
 
@@ -23,11 +23,11 @@ El reporte HTML interactivo se generará en `htmlcov/index.html`. SFusion mantie
 
 ---
 
-## 2. Resumen de Módulos (160 Pruebas en 10 Módulos)
+## 2. Resumen de Módulos (169 Pruebas en 10 Módulos)
 
 | Módulo de Prueba | Archivo de Prueba | Componente Evaluado | Comportamientos Verificados |
 | :--- | :--- | :--- | :--- |
-| **Vistas de Frontend** | `test_editor_panel.py`<br/>`test_sources_panel.py`<br/>`test_map_view.py`<br/>`test_settings_dialog.py`<br/>`test_main_window.py` | Componentes Qt (`ui/`) | Interacción offscreen sin servidor gráfico, layouts, señales/slots, selección en listas, menús contextuales, pan/zoom y diálogos modales (~97% cobertura). |
+| **Vistas de Frontend** | `test_editor_panel.py`<br/>`test_sources_panel.py`<br/>`test_map_view.py`<br/>`test_settings_dialog.py`<br/>`test_shared_dialogs.py`<br/>`test_main_window.py` | Componentes Qt (`ui/`) | Interacción offscreen sin servidor gráfico, layouts, señales/slots, selección en listas, menús contextuales, pan/zoom, diálogos estandarizados y diálogos modales (~97% cobertura). |
 | **Controladores** | `test_main_controller.py`<br/>`test_info_controller.py`<br/>`test_map_controller.py`<br/>`test_sources_controller.py`<br/>`test_settings_controller.py` | Controladores (`src/controllers/`) | Coordinación del pipeline en 5 fases (Persistencia -> ETL -> Parquet -> Limpieza), resaltado visual, emparejamiento de vías y sincronización. |
 | **Núcleo y DI** | `test_app_builder.py`<br/>`test_map_renderer.py`<br/>`test_schemas.py` | App Builder y Renderizador | Inyección de dependencias completa, dibujo en QGraphicsScene (cintas, nodos, flechas direccionales) y validación Pydantic. |
 | **Agente SLM y Razonamiento** | `test_slm_engine.py`<br/>`test_neuro_symbolic_resolver.py`<br/>`test_prompt_builder.py`<br/>`test_slm_output_parser.py` | Pipeline SLM (`src/slm/`) | Inferencia determinista de unidades, resolución heurística de esquemas, extracción jerárquica de claves, filtrado de `<think>` y síntesis de prompts. |

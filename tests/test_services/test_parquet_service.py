@@ -44,8 +44,11 @@ def test_process_table(mock_read_sql):
 @patch('os.path.exists', return_value=False)
 def test_worker_run_db_not_found(mock_exists):
     worker = ParquetExportWorker("missing.db")
+    errors = []
+    worker.signals.error.connect(errors.append)
     worker.run()
-    
+    assert len(errors) == 1
+
 def test_parquet_service():
     service = ParquetService()
     with patch.object(service._thread_pool, 'start') as mock_start:

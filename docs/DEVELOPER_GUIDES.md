@@ -136,7 +136,7 @@ pytest tests/test_services/test_math_engine.py -v
 
 ## 5. Automated Testing Guidelines
 
-We enforce an automated test coverage standard of **$\ge 80\%$** across backend and frontend code (current suite: **160 tests, >91% coverage**).
+We enforce an automated test coverage standard of **$\ge 80\%$** across backend and frontend code (current suite: **169 tests, >91% coverage**).
 
 ### 5.1 Running Headless Tests
 All tests must execute cleanly in headless environments (e.g., CI/CD or terminal-only servers) using the offscreen Qt platform:

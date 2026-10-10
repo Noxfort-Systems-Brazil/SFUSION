@@ -19,8 +19,7 @@ SFUSION/
 ├── ARCHITECTURE.md             # Clean MVC Blueprint, Builder Pattern & Service Layer
 ├── pyproject.toml              # Build toolchain & project metadata
 ├── requirements.txt            # Python runtime dependencies
-├── sfusion.spec                # PyInstaller standalone bundling specification
-├── Dockerfile                  # Multi-stage Linux build container
+├── Dockerfile                  # Containerized Linux runtime environment
 ├── docker-compose.yml          # Container composition definition
 ├── sync.sh                     # 1-click Git update & synchronization script
 ├── run.sh                      # 1-click virtual environment runner
@@ -81,7 +80,7 @@ SFUSION/
 │   ├── sources/                # Telemetry directory inspector & file tree
 │   └── main_window.py          # Central desktop layout container
 │
-└── tests/                      # Automated Test Suite (160 tests, >91% coverage)
+└── tests/                      # Automated Test Suite (169 tests, >91% coverage)
     ├── test_controllers/       # Controller mediator and signal tests
     ├── test_core/              # AppBuilder, schemas and scene rendering tests
     ├── test_domain/            # AppState state transitions and entity tests
@@ -114,8 +113,8 @@ SFUSION/
 ### 4. Operations, Frontend & Quality Assurance
 - **[User Guide & Operations Manual](USER_GUIDE.md)**: Step-by-step visual tutorial for navigating maps, pairing road directions, associating sensor fields, and compiling projects.
 - **[Developer & Integration Guides](DEVELOPER_GUIDES.md)**: Setup instructions, coding standards, implementing custom sensor loaders, and testing conventions.
-- **[Deployment & Packaging](DEPLOYMENT_AND_PACKAGING.md)**: Compiling standalone executables via `sfusion.spec`, Docker multi-stage builds, and desktop environment integration.
-- **[Testing & Quality Assurance](TESTING.md)**: Comprehensive Pytest suite (160 tests, >91% coverage), headless Qt verification, and mock fixtures.
+- **[Deployment & Packaging](DEPLOYMENT_AND_PACKAGING.md)**: Docker containerization, standalone desktop execution, and desktop environment integration.
+- **[Testing & Quality Assurance](TESTING.md)**: Comprehensive Pytest suite (169 tests, >91% coverage), headless Qt verification, and mock fixtures.
 - **[Internal API Reference](API_REFERENCE.md)**: Technical specifications for domain state, service contracts, Qt signals, and controller mediation.
 
 ---

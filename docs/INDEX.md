@@ -50,7 +50,7 @@ For an exhaustive directory tree and technical breakdown, please visit the prima
 * [User Guide](USER_GUIDE.md) — Step-by-step visual tutorial for loading maps, adding sensors, editing schema associations, and generating the final dataset.
 * [Developer Guides](DEVELOPER_GUIDES.md) — Comprehensive developer setup, extensibility rules, and architecture principles.
 * [Deployment & Packaging](DEPLOYMENT_AND_PACKAGING.md) — PyInstaller binary compilation, Docker multi-stage builds, and desktop integration.
-* [Testing & QA](TESTING.md) — Test suite structure (160 tests, >91% coverage), headless Qt execution, mocking strategy, and code coverage.
+* [Testing & QA](TESTING.md) — Test suite structure (169 tests, >91% coverage), headless Qt execution, mocking strategy, and code coverage.
 * [Internal API Reference](API_REFERENCE.md) — Technical specification of domain state, services, and controller classes.
 * [Multi-Language Hub](README.md) — Central Multi-Language Hub and international navigation.
 
