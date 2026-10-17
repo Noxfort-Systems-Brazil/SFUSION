@@ -152,5 +152,5 @@ QT_QPA_PLATFORM=offscreen pytest --cov=src --cov=ui --cov-report=term-missing
   <img src="../assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
   <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
   <i>Engenharia de Mobilidade Inteligente • SFusion Mapper v0.1.0</i><br/>
-  <small>© 2026 Noxfort Systems. Licenciado sob AGPLv3.</small>
+  <small>SPDX-License-Identifier: AGPL-3.0-or-later • SPDX-FileCopyrightText: © 2026 Noxfort Systems</small>
 </div>

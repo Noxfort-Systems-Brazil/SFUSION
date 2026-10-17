@@ -1,13 +1,14 @@
 # ==============================================================================
 # SFusion — MkDocs Configuration (Material for MkDocs)
 # SFusion Mapper: "Day Zero" ETL Configuration Tool for Smart Mobility
-# Copyright (C) 2026 — Noxfort Systems
+# SPDX-FileCopyrightText: 2026 Noxfort Systems <dev@noxfort.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
 # ==============================================================================
 
 site_name: "SFusion Mapper — Technical Documentation"
 site_description: "Technical documentation and engineering guide for SFusion Mapper — Day Zero ETL Configuration Tool for Smart Cities and SUMO."
 site_author: "Gabriel Moraes — Noxfort Systems"
-copyright: "Copyright &copy; 2026 — Noxfort Systems"
+copyright: "Copyright &copy; 2026 Noxfort Systems &bull; SPDX-License-Identifier: AGPL-3.0-or-later"
 
 # ==============================================================================
 # Theme

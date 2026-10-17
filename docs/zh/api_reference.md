@@ -36,5 +36,5 @@
   <img src="../assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
   <b>Noxfort Systems</b> — <i>卓越科技 • A State Of Art Company</i><br/>
   <i>智慧交通出行工程 • SFusion Mapper v0.1.0</i><br/>
-  <small>© 2026 Noxfort Systems. 基于 AGPLv3 协议授权.</small>
+  <small>SPDX-License-Identifier: AGPL-3.0-or-later • SPDX-FileCopyrightText: © 2026 Noxfort Systems</small>
 </div>

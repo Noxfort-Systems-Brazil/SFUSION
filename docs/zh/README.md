@@ -11,6 +11,7 @@
 [![PySide6](https://img.shields.io/badge/Framework-PySide6%20(Qt6)-41CD52?style=flat&logo=qt&logoColor=white)](https://www.qt.io/)
 [![Engine: Polars](https://img.shields.io/badge/Engine-Polars-CD792C?style=flat)](https://pola.rs/)
 [![Format: Parquet](https://img.shields.io/badge/Output-Apache%20Parquet-teal?style=flat)](https://parquet.apache.org/)
+[![开源协议: AGPL-3.0-or-later](https://img.shields.io/badge/%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE-AGPL--3.0--or--later-blue?style=flat)](../../LICENSE)
 
 ---
 
@@ -45,5 +46,6 @@
 <div align="center">
   <img src="../assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
   <b>Noxfort Systems</b> — <i>卓越科技 • A State Of Art Company</i><br/>
-  <i>智慧交通出行工程 • SFusion Mapper v0.1.0</i>
+  <i>智慧交通出行工程 • SFusion Mapper v0.1.0</i><br/>
+  <small>SPDX-License-Identifier: AGPL-3.0-or-later • SPDX-FileCopyrightText: © 2026 Noxfort Systems</small>
 </div>

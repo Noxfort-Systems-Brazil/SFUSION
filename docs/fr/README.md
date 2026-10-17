@@ -11,6 +11,7 @@
 [![PySide6](https://img.shields.io/badge/Framework-PySide6%20(Qt6)-41CD52?style=flat&logo=qt&logoColor=white)](https://www.qt.io/)
 [![Engine: Polars](https://img.shields.io/badge/Engine-Polars-CD792C?style=flat)](https://pola.rs/)
 [![Format: Parquet](https://img.shields.io/badge/Output-Apache%20Parquet-teal?style=flat)](https://parquet.apache.org/)
+[![Licence: AGPL-3.0-or-later](https://img.shields.io/badge/Licence-AGPL--3.0--or--later-blue?style=flat)](../../LICENSE)
 
 ---
 
@@ -45,5 +46,6 @@ Ce répertoire rassemble la suite complète de documentation technique en **Fran
 <div align="center">
   <img src="../assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
   <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
-  <i>Ingénierie de Mobilité Intelligente • SFusion Mapper v0.1.0</i>
+  <i>Ingénierie de Mobilité Intelligente • SFusion Mapper v0.1.0</i><br/>
+  <small>SPDX-License-Identifier: AGPL-3.0-or-later • SPDX-FileCopyrightText: © 2026 Noxfort Systems</small>
 </div>

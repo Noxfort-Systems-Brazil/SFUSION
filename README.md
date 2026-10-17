@@ -16,7 +16,7 @@ aliases: [Projeto SFUSION, Root]
 [![PySide6](https://img.shields.io/badge/PySide6-Qt6-41CD52?style=flat&logo=qt&logoColor=white)](https://www.qt.io/)
 [![Polars](https://img.shields.io/badge/Engine-Polars-CD792C?style=flat&logo=polars&logoColor=white)](https://pola.rs/)
 [![Parquet](https://img.shields.io/badge/Output-Apache_Parquet-008080?style=flat&logo=apache&logoColor=white)](https://parquet.apache.org/)
-[![License](https://img.shields.io/badge/License-AGPL_v3-blue?style=flat)](LICENSE)
+[![License: AGPL-3.0-or-later](https://img.shields.io/badge/License-AGPL--3.0--or--later-blue?style=flat)](LICENSE)
 
 [![SFUSION GitHub Repository Card](https://github-readme-stats.vercel.app/api/pin/?username=Noxfort-Systems-Brazil&repo=SFUSION&theme=dark)](https://github.com/Noxfort-Systems-Brazil/SFUSION)
 
@@ -116,5 +116,5 @@ QT_QPA_PLATFORM=offscreen pytest -v --cov=src --cov=ui
   <img src="docs/assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="48" /><br/>
   <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
   <i>SYNAPSE Fusion (SFusion) Mapper • Version 0.1.0</i><br/>
-  <small>Licensed under the <a href="LICENSE">GNU Affero General Public License v3.0</a>. © 2026 Noxfort Systems.</small>
+  <small>SPDX-License-Identifier: <a href="LICENSE">AGPL-3.0-or-later</a> • SPDX-FileCopyrightText: © 2026 Noxfort Systems</small>
 </div>

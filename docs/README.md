@@ -11,7 +11,7 @@
 [![PySide6](https://img.shields.io/badge/Framework-PySide6%20(Qt6)-41CD52?style=flat&logo=qt&logoColor=white)](https://www.qt.io/)
 [![Polars](https://img.shields.io/badge/Engine-Polars-CD792C?style=flat)](https://pola.rs/)
 [![Parquet](https://img.shields.io/badge/Output-Apache%20Parquet-teal?style=flat)](https://parquet.apache.org/)
-[![License](https://img.shields.io/badge/License-AGPL_v3-blue?style=flat)](../LICENSE)
+[![License: AGPL-3.0-or-later](https://img.shields.io/badge/License-AGPL--3.0--or--later-blue?style=flat)](../LICENSE)
 
 ---
 
@@ -57,5 +57,5 @@
   <img src="assets/noxfort-logo.png" alt="Noxfort Systems Logo" width="45" /><br/>
   <b>Noxfort Systems</b> — <i>A State Of Art Company</i><br/>
   <i>SYNAPSE Fusion (SFusion) Mapper • Version 0.1.0</i><br/>
-  <small>© 2026 Noxfort Systems. Licenciado sob AGPLv3.</small>
+  <small>SPDX-License-Identifier: AGPL-3.0-or-later • SPDX-FileCopyrightText: © 2026 Noxfort Systems</small>
 </div>

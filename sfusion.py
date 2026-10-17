@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # SFUSION (Smart Fusion) is an open-source visual data engineering platform for kinematic normalization and telemetry fusion.
-# Copyright (C) 2026 Noxfort Systems
+# SPDX-FileCopyrightText: 2026 Noxfort Systems <dev@noxfort.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as

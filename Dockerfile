@@ -1,4 +1,6 @@
 # Dockerfile for SFusion Mapper GUI Application
+# SPDX-FileCopyrightText: 2026 Noxfort Systems <dev@noxfort.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
 FROM python:3.12-slim-bookworm
 
 WORKDIR /app
